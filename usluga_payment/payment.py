@@ -2,34 +2,39 @@ import json
 from datetime import datetime
 
 import requests
+from decouple import config
 
 URL = "https://billing.crm.mycloud.kg/pay/main.php"
+TOKEN = config("CRM_TOKEN", default="")
 
 
-def post_payment(token, account_number, refil_date_time, amount, action):
+def make_payment(account_number, amount):
+    """
+    Make a payment request
+    """
 
     data = {
-        "token": token,
+        "token": TOKEN,
         "account_number": account_number,
-        "refill_date_time": refil_date_time,
+        "refill_date_time": datetime.now(),
         "amount": amount,
-        "action": action,
+        "action": "pay",
     }
-    return json.dumps(data, default=str)
 
-
-def make_post_payment(token, account_number, refil_date_time, amount, action):
-
-    info = post_payment(token, account_number, refil_date_time, amount, action)
-
-    response = requests.post(URL, info)
+    response = requests.post(URL, json.dumps(data, default=str))
     response_content = json.loads(response.text)
 
     return response_content
 
 
-pay = make_post_payment(
-    "yVKdAGWwCu6sb7j8CNjhiW7JeFv7CBlN", 123456789, datetime.now(), '500', "check"
-)
+def check_account(account_number: int):
+    data = {
+        "token": TOKEN,
+        "account_number": account_number,
+        "action": "check",
+    }
 
-print(pay)
+    response = requests.post(URL, json.dumps(data, default=str))
+    response_content = json.loads(response.content)
+
+    return response_content

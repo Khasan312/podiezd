@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "*"
 requests = "*"
+python-decouple = "*"
+djangorestframework = "*"
 
 [dev-packages]
 black = "*"
@@ -13,3 +15,6 @@ isort = "*"
 
 [requires]
 python_version = "3.10"
+
+[pipenv]
+allow_prereleases = true

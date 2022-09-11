@@ -22,7 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-e7ex_oq%b&l6$ifi30+%soa-!eb4p_qyfvr1n0qq0k8o7^nf7g"
+SECRET_KEY = (
+    "django-insecure-e7ex_oq%b&l6$ifi30+%soa-!eb4p_qyfvr1n0qq0k8o7^nf7g"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -57,7 +59,7 @@ ROOT_URLCONF = "core.urls"
 
 PROJECT_TEMPLATES = [
     join(BASE_DIR, "templates"),
-    join(BASE_DIR, "usluga_payment", "templates")
+    join(BASE_DIR, "usluga_payment", "templates"),
 ]
 
 TEMPLATES = [
