@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from usluga_payment.models import Podiezd
+
+admin.site.register(Podiezd)

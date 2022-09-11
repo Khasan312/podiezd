@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Уборка подъездов</title>
+  <link rel="stylesheet"  href="{% static 'css/style.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- container -->
+  <div class="container">
+
+    <!-- header -->
+    <div class="header__div">
+
+      <div class="header__div-item">
+        <h1>
+          <strong class="header__div-item-label">Форма</strong>
+        </h1>
+      </div>
+
+    </div>
+    <!-- header end-->
+
+    <!-- main -->
+    <div class="main">
+      <div class="main__div">
+        <div class="main__div-text-type">
+          <h2 class="main__div-text">Лицевой счет</h2>
+        </div>
+        <!-- ===== -->
+        <div class="main__div-input-type">
+          <input type="number" class="main__div-input" id="main__div-input">
+        </div>
+        <!-- ===== -->
+        <div class="main__div-button-type">
+          <button class="main__div-button" onclick="print()">Проверить</button>
+        </div>
+      </div>
+      <!-- main__div end -->
+      <div>
+
+      </div>
+
+      <div class="result__div" id="result__div">
+      
+      </div>
+    </div>
+    <!-- main end-->
+
+
+  </div>
+  <!-- container end -->
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
