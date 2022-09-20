@@ -2,12 +2,11 @@ var input = document.getElementById("main__div-input");
 var resultDiv = document.getElementById("result__div");
 var accountNumber;
 
-var PaymentFormHTML = (clientName, clientStyle) => {
+var PaymentFormHTML = (clientName) => {
     return `
     <div class="result__from-js">
     <div>
         <div> <strong>Фамилия:</strong> ${clientName}</div>
-        <div> <strong>Адрес:</strong> ${clientStyle}</div>
         <div style="display: flex;">
             <div>
                 Сумма платежа
