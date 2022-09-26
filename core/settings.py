@@ -27,9 +27,9 @@ SECRET_KEY = (
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # app
     "usluga_payment",
+
 ]
 
 MIDDLEWARE = [
@@ -95,7 +96,7 @@ DATABASES = {
     # }
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": join(BASE_DIR, "run", "mydatabase_db"),
+        "NAME": join(BASE_DIR, "run", "usluga_db"),
     }
 }
 
@@ -143,3 +144,10 @@ STATIC_ROOT = join(BASE_DIR, "static")
 STATIC_URL = "/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
+

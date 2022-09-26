@@ -1,5 +1,4 @@
-{% load static %}
-<!DOCTYPE html>
+<html>
 <html lang="en">
 <head>
   <style>
@@ -134,6 +133,7 @@
   border-radius: 6px;
   padding: 5px;
   
+  
 }
 
 .result__from-js-input-sum:focus{
@@ -179,7 +179,7 @@
         </div>
         <!-- ===== -->
         <div class="main__div-button-type">
-          <button class="main__div-button" onclick="getCheck()">Проверить</button>
+          <button class="main__div-button" onclick="getInfo()">Проверить</button>
         </div>
       </div>
       <!-- main__div end -->
@@ -197,84 +197,82 @@
   </div>
   <!-- container end -->
   <script>
-    var input = document.getElementById("main__div-input");
-    var resultDiv = document.getElementById("result__div");
-    var accountNumber;
+       var input = document.getElementById("main__div-input");
+        var resultDiv = document.getElementById("result__div");
+        var accountNumber;
 
-var PaymentFormHTML = (clientName) => {
-    return `
-    <div class="result__from-js">
-    <div>
-        <div> <strong>Фамилия:</strong> ${clientName}</div>
-        <div style="display: flex;">
-            <div>
-                Сумма платежа
-            </div>
-            <div style="margin-left: 20px;">
-                <input type"number" class="result__from-js-input-sum" id="amount-id"> сом.
-            </div>
-        </div>
-    </div>
-    <div> 
-        <button onclick="but()" class="result__from-js__button">Оплатить</button>
-    </div>
-    </div>
-`
-}
 
-var urlCheckAccount = 'http://192.168.3.190:8000/api/check-account'
+
+var PaymentFormHTML = function PaymentFormHTML(clientName) {
+    return "\n    <div class=\"result__from-js\">\n    <div>\n        <div> <strong>Фамилия:</strong> " + clientName + "</div>\n        <div style=\"display: flex;\">\n            <div>\n                Сумма платежа\n            </div>\n            <div style=\"margin-left: 20px;\">\n                <input type\"number\" class=\"result__from-js-input-sum\" id=\"amount-id\"> сом.\n            </div>\n        </div>\n    </div>\n    <div> \n        <button onclick=\"but()\" class=\"result__from-js__button\">Оплатить</button>\n    </div>\n    </div>\n";
+};
+var urlCheckAccount = 'http://192.168.3.190:8000//api/check-account';
+var urlpayAccount = 'http://192.168.3.190:8000//api/make-payment';
+
 var xhr = new XMLHttpRequest();
 
-
-var getCheck = function getCheck() {
-  // console.log(checkAccountInput.value);
-  var inputNumber = input.value;
-  console.log(inputNumber + " getCheck inputNumber");
-  var jsonIdStudent = JSON.stringify({
-    account: input.value
-  });
-  xhr.open("POST", urlCheckAccount);
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.send(jsonIdStudent);
-  // тело ответа 
-  xhr.onload = function () {
-    var responseObj = JSON.parse(xhr.response);
-    setInerHTML(responseObj.response, inputNumber);
-    console.log(responseObj.response);
-  };
-  // checkAccountInput.value = "";
+function getInfo() {
+    // console.log(checkAccountInput.value);
+    var inputNumber = input.value;
+    console.log(inputNumber + " getCheck inputNumber");
+    var jsonIdStudent = JSON.stringify({
+        account_number: input.value
+    });
+    xhr.open("POST", urlCheckAccount);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(jsonIdStudent);
+    console.log(jsonIdStudent)
+    // тело ответа 
+    xhr.onload = function () {
+        var responseObj = JSON.parse(xhr.response);
+        resultDiv.innerHTML = PaymentFormHTML(responseObj.message);
+        console.log(responseObj);
+    };
+    // checkAccountInput.value = "";
 };
 
 
-var but = () => {
-    var input_amount = document.getElementById("amount-id");
+var but = function but() {
+  var input_amount = document.getElementById("amount-id");
 
-    const body_data = JSON.stringify({
-        account_number: parseInt(accountNumber),
-        amount: parseInt(input_amount.value)
-    });
+  var body_data = JSON.stringify({
+    account_number: input.value,
+    amount: parseInt(input_amount.value)
+  });
 
-    console.log(body_data);
+  console.log(body_data);
 
-    const request = new Request('http://192.168.3.190:8000/api/make-payment', {
-        method: 'POST',
-        body: body_data
-    });
+  if (input_amount.value <= 0) {
+    resultDiv.innerHTML += '<h4 style="color: red; text-align:center;">Введите сумму больше чем нуль</h4>';
+  } else {
+    xhr.open('POST', urlpayAccount);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(body_data);
+    xhr.onload = function () {
+      var responseObjpay = JSON.parse(xhr.response);
+      console.log(responseObjpay);
+      if (responseObjpay.success === true) {
+        input_amount.value = "";
+        resultDiv.innerHTML += '<h4 style="text-align:center;">' + responseObjpay.message + '</h4>';
+      } else {
+        resultDiv.innerHTML += '<h5 style="text-align:center;>Оплата не прошла сорре</h5>';
+      }
+    };
+  };
+};
 
-    // fetch(request)
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //         if (data.success === true) {
-    //             input_amount.value = "";
-    //             resultDiv.innerHTML += `<h6>${data.message}</h6>`;
-    //         } else {
-    //             resultDiv.innerHTML += `<h6>${data.message}</h6>`;
-    //         }
-    //     }).catch(error => {
-    //         console.error(error);
-    //     });
 
-}
+// var day = Date.day();
+// var month = Date.month();
+// var minutes = Date.minutes();
+// var year = Date.year();
+// var now = day + ":" + month + ":" + year + "/" + minutes;
+// console.log(now)
+
+
+
+
+
   </script>
 </body>
 </html>

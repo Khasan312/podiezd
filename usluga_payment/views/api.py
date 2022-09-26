@@ -1,5 +1,4 @@
 import json
-
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from usluga_payment.payment import check_account, make_payment

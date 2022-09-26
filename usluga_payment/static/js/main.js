@@ -24,7 +24,7 @@ var PaymentFormHTML = (clientName) => {
 }
 
 const print = () => {
-    const request = new Request('http://127.0.0.1:8000/api/check-account', {
+    const request = new Request('http://192.168.3.190:8000/api/check-account', {
         method: 'POST',
         body: JSON.stringify({
             "account_number": parseInt(input.value)
@@ -63,7 +63,7 @@ var but = () => {
 
     console.log(body_data);
 
-    const request = new Request('http://127.0.0.1:8000/api/make-payment', {
+    const request = new Request('http://192.168.3.190:8000/api/make-payment', {
         method: 'POST',
         body: body_data
     });
