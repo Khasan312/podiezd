@@ -27,7 +27,7 @@ SECRET_KEY = (
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -96,7 +96,7 @@ DATABASES = {
     # }
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": join(BASE_DIR, "run", "usluga_db"),
+        "NAME": join(BASE_DIR, "run", "podiezdy_db"),
     }
 }
 
@@ -140,8 +140,10 @@ STATIC_FILES = [
     os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "usluga_payment", "static"),
 ]
-STATIC_ROOT = join(BASE_DIR, "static")
-STATIC_URL = "/static/"
+STATIC_URL = '/static/'
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

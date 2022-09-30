@@ -207,7 +207,7 @@ var PaymentFormHTML = function PaymentFormHTML(clientName) {
     return "\n    <div class=\"result__from-js\">\n    <div>\n        <div> <strong>Фамилия:</strong> " + clientName + "</div>\n        <div style=\"display: flex;\">\n            <div>\n                Сумма платежа\n            </div>\n            <div style=\"margin-left: 20px;\">\n                <input type\"number\" class=\"result__from-js-input-sum\" id=\"amount-id\"> сом.\n            </div>\n        </div>\n    </div>\n    <div> \n        <button onclick=\"but()\" class=\"result__from-js__button\">Оплатить</button>\n    </div>\n    </div>\n";
 };
 var urlCheckAccount = 'http://192.168.3.190:8000//api/check-account';
-var urlpayAccount = 'http://192.168.3.190:8000//api/make-payment';
+var urlpayAccount = 'http://192.168.3.190:8000/api/make-payment';
 
 var xhr = new XMLHttpRequest();
 
