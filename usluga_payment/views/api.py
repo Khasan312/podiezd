@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from usluga_payment.payment import check_account, make_payment
 from usluga_payment.serializers import MakePaymentSerializer
+from usluga_payment.baip_request import send_baip_account_data
 
 
 class CheckAccount(APIView):
@@ -32,9 +33,13 @@ class MakePayment(APIView):
 
         if result["success"] is False:
             return Response(result, status=404)
+        validated_data["action"] = "pay"
+        send_baip_account_data(validated_data['account_number'],
+                                validated_data['amount'],
+                                # validated_data['name'],
+                                validated_data['action'])
 
         # add the action field to the data to save action to database
-        validated_data["action"] = "pay"
 
         # save object to database
         serializer.save(**validated_data)
