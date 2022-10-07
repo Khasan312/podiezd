@@ -1,18 +1,5 @@
-<html>
-<html lang="en">
-<head>
-  
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Уборка подъездов</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-  <style>
-    /* ALL */
+css = """
+   /* ALL */
 *, *::after, *::before{
   margin: 0;
   padding: 0;
@@ -58,7 +45,6 @@
 
 .main{
   width: 750px;
-  height: 100%;
   min-height: 210px;
   background-color: #f5f5f5;
   border: 1px solid #ddd;
@@ -151,67 +137,61 @@
 }
 
 /* MAIN end */
-  </style>
-  
-  <!-- container -->
-  <div class="container">
+/* FOOTER start */
 
-    <!-- header -->
-    <div class="header__div">
+.footer{
+  flex-wrap: wrap;
+  justify-content: center;
+  bottom:0;
+  display: flex;
+  margin-top: 100px;
+  margin-bottom: 5px;
+}
 
-      <div class="header__div-item">
-        <h1>
-          <strong class="header__div-item-label">Форма</strong>
-        </h1>
-      </div>
+.footer__url{
+  width: 105px;
+  height: 30px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
 
-    </div>
-    <!-- header end-->
+.footer__url:hover{
+  background-color:bisque;
+}
 
-    <!-- main -->
-    <div class="main">
-      <div class="main__div">
-        <div class="main__div-text-type">
-          <h2 class="main__div-text">Лицевой счет</h2>
-        </div>
-        <!-- ===== -->
-        <div class="main__div-input-type">
-          <input type="number" class="main__div-input" id="main__div-input">
-        </div>
-        <!-- ===== -->
-        <div class="main__div-button-type">
-          <button class="main__div-button" onclick="getInfo()">Проверить</button>
-        </div>
-      </div>
-      <!-- main__div end -->
-      <div>
+.footer__url:active{
+  background-color: #fff;
+}
 
-      </div>
+.footer__pay{
+  margin-right: 25px;
+}
 
-      <div class="result__div" id="result__div">
-      
-      </div>
-
-      <div>
-        <button onclick="btnClose()">
-          Закрыть
-        </button>
-      </div>
-
-      <div>
-        Отмена
-      </div>
-    </div>
-    <!-- main end-->
+.footer__close{
+  margin-left: 25px;
+}
 
 
-  </div>
-  <!-- container end -->
-  <script>
-       var input = document.getElementById("main__div-input");
+/* FOOTER end */
+
+/* RESULT START */
+
+
+.result__button-pay{
+  margin-top: 13vh;
+}
+
+/* RESULT END */
+
+
+"""
+
+
+def js_file(cashregisterId, kioskId, receiptId, productCode, partnerId, userName, time, signature):
+    text = """ var input = document.getElementById("main__div-input");
         var resultDiv = document.getElementById("result__div");
         var accountNumber;
-
+    
 
 
         function btnClose () {
@@ -242,11 +222,12 @@
                   '</div>"';
             return text;
         };
-
-
-        var urlCheckAccount = 'http://192.168.3.190:8000//api/check-account';
+        """
+    text2 = f"""
+        var urlCheckAccount = 'http://192.168.3.190:8000/api/check-account/?cashregister_id={cashregisterId}&kiosk_id={kioskId}&receipt_id={receiptId}&productcode={productCode}&partner_id={partnerId}&user_name={userName}&time={time}&signature={signature}";';
         var urlpayAccount = 'http://192.168.3.190:8000/api/make-payment';
-
+        """ 
+    text3 = """
         var xhr = new XMLHttpRequest();
 
         function getInfo() {
@@ -299,8 +280,70 @@
               }
             };
           };
-        };
+        };"""
+    fullText = text + text2 + text3
+    return fullText
 
-  </script>
-</body>
-</html>
+
+def html(jsParams):
+    html_ = f""" <div class="container">
+  <style>{css}</style>
+  <!-- header -->
+  <div class="header__div">
+
+    <div class="header__div-item">
+      <h1>
+        <strong class="header__div-item-label">Уборка подъездов</strong>
+      </h1>
+    </div>
+
+  </div>
+  <!-- header end-->
+
+  <!-- main -->
+  <div class="main">
+    <div class="main__div">
+      <div class="main__div-text-type">
+        <h2 class="main__div-text">Введите код</h2>
+      </div>
+      <!-- ===== -->
+      <div class="main__div-input-type">
+        <input type="number" class="main__div-input" id="main__div-input">
+      </div>
+      <!-- ===== -->
+      <div class="main__div-button-type">
+        <button class="main__div-button" onclick="getInfo()">Проверить</button>
+      </div>
+    </div>
+    <!-- main__div end -->
+    <div>
+
+    </div>
+
+    <div class="result__div" id="result__div">
+    
+    </div>
+
+
+  </div> <!-- main end-->
+  <div class="footer">
+    <div>
+      <!-- <a href="#" class="footer__pay footer__url">Оплата</a> -->
+      <button onclick="" class="footer__pay footer__url">Оплата</button>
+    </div>
+    <div>
+      <!-- <a href="#" class="footer__cancel footer__url">Отмена</a> -->
+      <button onclick="" class="footer__cancel footer__url">Отмена</button>
+    </div>
+
+    <div>
+      <!-- <a href="#" class="footer__close footer__url">Отмена</a> -->
+      <button onclick="btnClose()" class="footer__close footer__url">Закрыть</button>
+    </div>
+   
+  </div>
+  <hr/>
+  <script>{jsParams}</script>
+</div> <!-- container end -->"""
+
+    return html_

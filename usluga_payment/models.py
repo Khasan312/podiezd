@@ -2,6 +2,7 @@ from django.db import models
 from .utils import create_new_ref_number 
 # from django.dispatch import receiver
 LENGTH = 20
+from django.utils import timezone
 
 
 def random_string():
@@ -25,23 +26,54 @@ class Podiezd(models.Model):
             unique=True,
             default=create_new_ref_number
         )
+    name = models.CharField(max_length=164)
 
+    class Meta:
+        get_latest_by = ['refill_date_time']
 
 
 
     def __str__(self) -> str:
-        return f' random_number -> {str(self.random_number)} and action -> {self.action}'
-
-# @receiver(pre_save, sender=Podiezd)
-# def pre_save_create_txn_id(sender, instance, *args, **kwargs):
-#     if not instance.random_number:
-#         instance.random_number = unique_txn_id_order(instance)
-
-        
-        
+        return f'action -> {self.action}'
 
 
-# def pre_save_create_order_id(sender, instance, *args, **kwargs):
-#     if not instnace.random_number:
-#         instance.random_number = unique_number_generator(instance)
-#     return instance.random_number
+class BaipInfo(models.Model):
+    cashregister_id = models.IntegerField()
+    kiosk_id = models.IntegerField()
+    receipt_id = models.IntegerField()
+    partner_id = models.IntegerField()
+    created = models.DateTimeField(default=timezone.now)
+
+
+    class Meta:
+        get_latest_by = ['created']
+
+    
+    def __str__(self):
+        return self.cashregister_id
+
+
+
+
+
+class Transaction(models.Model):
+
+    class TransactionStatus(models.TextChoices):
+        RECIEVED = ('received', 'RECEIVED')
+        CANCELLED = ("cancelled", "CANCELLED")
+        WAITING =  ("waiting", "WAITING")
+
+
+    transaction_number = models.IntegerField()
+    name = models.CharField(max_length=128)
+    baip_info = models.ForeignKey(BaipInfo, on_delete=models.SET_NULL, null=True)
+    status = models.CharField(max_length=32, choices=TransactionStatus.choices, default=TransactionStatus.WAITING)
+
+
+    def __str__(self):
+        return self.transaction_number
+
+
+
+
+

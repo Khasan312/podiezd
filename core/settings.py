@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # app
     "usluga_payment",
+    'rest_framework',
 
 ]
 
