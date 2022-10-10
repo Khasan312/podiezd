@@ -73,18 +73,21 @@ class MakePayment(APIView):
 class TransactionCancel(APIView):
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
+        
 
         serializer = MakePaymentSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         validated_data = serializer.validated_data
 
-        info = Transaction.objects.latest()
+        info = Transaction.objects.get(random_number)
 
         info.status = 'cancelled'
 
-        cancel_baip_account_data(validated_data['account_number'],
-                                validated_data['amount'],
-                                validated_data['action'],
+        info.save()
+
+        cancel_baip_account_data(account_number=Podiezd.random_number
                                 )
-        serializer.save(**validated_data)
+        # serializer.save(**validated_data)
+
+        return Response(status=200)
         

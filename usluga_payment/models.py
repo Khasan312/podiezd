@@ -71,7 +71,7 @@ class Transaction(models.Model):
 
 
     def __str__(self):
-        return self.transaction_number
+        return str(self.transaction_number)
 
 
 
