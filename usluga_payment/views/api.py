@@ -11,11 +11,14 @@ from usluga_payment.cancel_baip_request import cancel_baip_account_data
 
 class CheckAccount(APIView):
     def post(self, request, *args, **kwargs):
+        print(request.body)
         account = json.loads(request.body)["account_number"]
         result = check_account(account)
+
     
 
         if result["success"] is False:
+
             return Response(result, status=404)
         name = result['message']
         baip_info = BaipInfo.objects.latest()
@@ -58,8 +61,8 @@ class MakePayment(APIView):
             validated_data['name'],
 
         )
-        # print(validated_data)
-        # print(transaction)
+        print(validated_data)
+        print(transaction)
 
         # add the action field to the data to save action to database
 

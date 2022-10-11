@@ -192,16 +192,18 @@
       
       </div>
 
-      <div>
-        <button onclick="btnClose()">
-          Закрыть
-        </button>
-      </div>
-
-      <div>
-        <button id="cancel-payment" onclick="cancelPayment()">
-          Отмена
-        </button>
+      <div class="buttons" style="display: flex;justify-content: space-evenly;margin-top: 50px;">
+        <div>
+          <button class="main__div-button" onclick="btnClose()">
+            Закрыть
+          </button>
+        </div>
+  
+        <div>
+          <button class="main__div-button" id="cancel-payment" onclick="cancelPayment()">
+            Отмена
+          </button>
+        </div>
       </div>
     </div>
     <!-- main end-->
@@ -213,6 +215,8 @@
        var input = document.getElementById("main__div-input");
         var resultDiv = document.getElementById("result__div");
         var cancelDiv = document.getElementById("cancel-payment")
+        var main = document.getElementsByClassName('main__div')[0];
+        var buttons =  document.getElementsByClassName('buttons')[0]
         var accountNumber;
 
 
@@ -247,18 +251,20 @@
         };
 
         function cancelFormHTML() {
-          var text = `<div>Transaction number
-                    <p>:</p>
-                <p><input type="number" size="20" name="num"  max="20"</div>`
+          var text = `<form>
+  <input class="main__div-input" type="number">
+  <input class="main__div-button" type="submit">
+</form>`
+
           return text
        };
 
 
 
 
-        var urlCheckAccount = 'http://192.168.3.190:8000//api/check-account';
+        var urlCheckAccount = 'http://192.168.3.190:8000/api/check-account';
         var urlpayAccount = 'http://192.168.3.190:8000/api/make-payment';
-        var urlcancelAccount = 'http://192.168.3.190:8000/api/make-payment';
+        var urlcancelAccount = 'http://192.168.3.190:8000/api/cancel-payment';
 
         var xhr = new XMLHttpRequest();
 
@@ -272,10 +278,11 @@
           xhr.setRequestHeader('Content-Type', 'application/json');
           xhr.send(jsonRandomNumber);
           console.log(jsonRandomNumber)
-
+          cancelDiv.style.display = 'none'
+          main.innerHTML = cancelFormHTML();
           xhr.onload = function() {
             var cancelObj = JSON.parse(xhr.response);
-            cancelDiv.innerHTML = cancelFormHTML
+            // cancelDiv.innerHTML = cancelFormHTML();
 
           }
         };
@@ -288,6 +295,7 @@
             var jsonIdStudent = JSON.stringify({
                 account_number: inputNumber
             });
+            console.log(jsonIdStudent);
             xhr.open("POST", urlCheckAccount);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(jsonIdStudent);
@@ -296,7 +304,7 @@
             xhr.onload = function () {
                 var responseObj = JSON.parse(xhr.response);
                 resultDiv.innerHTML = "XHR";
-                console.log(responseObj["message"]);
+                console.log(responseObj["message"],xhr);
                 resultDiv.innerHTML = paymentFormHTML(responseObj.message);
             };
             // checkAccountInput.value = "";
