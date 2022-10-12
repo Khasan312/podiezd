@@ -2,9 +2,13 @@ from datetime import datetime
 
 import requests
 import xmltodict
-
+from usluga_payment.views.api import *
 from usluga_payment.models import BaipInfo, Podiezd
 from usluga_payment.views.api import *
+import xml.dom.minidom
+
+
+URL = "http://192.168.181.2/Operator.ashx"
 
 URL = "http://192.168.181.2/Operator.ashx"
 
@@ -28,10 +32,10 @@ def prepare_baip_account_data(account_number, amount, action, name, **kwargs):
       <partner_row_id>1</partner_row_id>
       <kiosk_productcode>2280007001455</kiosk_productcode>
       <partner_productcode>2280007001455</partner_productcode>
-      <transaction_type>SALES</transaction_type>
+      <transaction_type>{podiezd.action}</transaction_type>
       <quantity>1</quantity>
-      <price>{amount}</price>
-      <description>{{NL}}№ транзакции:{podiezd.transaction_id}{{NL}}Абонент:{name}{{NL}}</description >
+      <price>{podiezd.amount}</price>
+      <description>{{NL}}№ транзакции:{podiezd.random_number}{{NL}}Абонент:{podiezd.name}{{NL}}</description >
       <partner_customer_id>1111</partner_customer_id>
     </item>
   </products>
@@ -49,5 +53,11 @@ def send_baip_account_data(account_number, amount, action, name):
         response_content = xmltodict.parse(response.content)
     except Exception as exc:
         return {}
+    # s = requests.session()
+
+    response = requests.post(URL, data=data, headers=headers)
+    print('---------------------')
+    print(response.content)
+    response_content = xml.xmltodict.parse(response.content)
 
     return response_content

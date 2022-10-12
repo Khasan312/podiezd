@@ -8,7 +8,6 @@ from django.shortcuts import render
 from usluga_payment.models import BaipInfo, Podiezd
 from usluga_payment.templates.python import html, js_file
 
-# 'cashregister_id': ['10300103'], 'kiosk_id': ['724300'], 'receipt_id': ['438'], 'productcode': ['2280001003660'], 'language': ['ru'], 'partner_id': ['513744']
 
 
 def index(request):

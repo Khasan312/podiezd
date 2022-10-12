@@ -1,178 +1,218 @@
 <html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Уборка подъездов</title>
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto+Condensed:wght@400;700&display=swap"
-        rel="stylesheet"
-      />
-    </head>
-    <body>
-      <style>
-        /* ALL */
-        *,
-        *::after,
-        *::before {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
-        /* ALL END  */
-        /* CONTAINER */
-        .container {
-          width: 750px;
-          margin: 100px auto;
-          font-family: "Roboto Condensed", sans-serif;
-        }
-        /* CONTAINER END */
-        /* HEADER */
-        .header__div {
-          background-color: #f5f5f5;
-          border: 1px solid #ddd;
-          border-radius: 6px 6px 0 0;
-        }
-        .header__div-item-label {
-          font-size: 18px;
-          font-weight: 700;
-          margin: 0 0 2px 35px;
-        }
-        .main__div-text {
-          font-size: 18px;
-        }
-        /* HEADER END */
-        /* MAIN */
-        .main {
-          width: 750px;
-          height: 100%;
-          min-height: 210px;
-          background-color: #f5f5f5;
-          border: 1px solid #ddd;
-          border-radius: 0 0 6px 6px;
-        }
-        .main__div {
-          margin: 15px 0px 0px 35px;
-          display: flex;
-          flex-wrap: wrap;
-        }
-        .main__div-text {
-          margin-top: 1px;
-        }
-        .main__div-input-type {
-          margin-left: 40px;
-          margin-top: 0px;
-        }
-        .main__div-input {
-          width: 200px;
-          height: 30px;
-          border: 1px solid #ddd;
-          border-radius: 6px;
-          padding: 5px;
-        }
-        .main__div-input:focus {
-          box-shadow: 1px 1px 10px #008000;
-        }
-        .main__div-button-type {
-          margin: 2px 0px 0px 40px;
-        }
-        .main__div-button {
-          width: 95px;
-          height: 28px;
-          border-radius: 6px;
-          border: 1px solid #ddd;
-        }
-        .main__div-button:hover {
-          background-color: bisque;
-        }
-        .main__div-button:active {
-          background-color: #fff;
-        }
-        .result__from-js {
-          width: 75%;
-          margin: 20px 0;
-          line-height: 2;
-          display: flex;
-          justify-content: space-around;
-        }
-        .result__from-js__button {
-          width: 95px;
-          height: 28px;
-          border-radius: 6px;
-          border: 1px solid #ddd;
-        }
-        .result__from-js__button:hover {
-          background-color: bisque;
-        }
-        .result__from-js__button:active {
-          background-color: #fff;
-        }
-        .result__from-js-input-sum {
-          width: 130px;
-          height: 30px;
-          border: 1px solid #ddd;
-          border-radius: 6px;
-          padding: 5px;
-        }
-        .result__from-js-input-sum:focus {
-          box-shadow: 1px 1px 10px #008000;
-        }
-        /* MAIN end */
-      </style>
-      <!-- container -->
-      <div class="container">
-        <!-- header -->
-        <div class="header__div">
-          <div class="header__div-item">
-            <h1>
-              <strong class="header__div-item-label">Форма</strong>
-            </h1>
-          </div>
-        </div>
-        <!-- header end-->
-        <!-- main -->
-        <div class="main">
-          <div class="main__div">
-            <div class="main__div-text-type">
-              <h2 class="main__div-text">Лицевой счет</h2>
-            </div>
-            <!-- ===== -->
-            <div class="main__div-input-type">
-              <input
-                type="number"
-                class="main__div-input"
-                id="main__div-input"
-              />
-            </div>
-            <!-- ===== -->
-            <div class="main__div-button-type">
-              <button class="main__div-button" onclick="getInfo()">
-                Проверить
-              </button>
-            </div>
-          </div>
-          <!-- main__div end -->
-          <div></div>
-          <div class="result__div" id="result__div"></div>
-          <div>
-            <button onclick="btnClose()">Закрыть</button>
-          </div>
-          <div>
-            <button id="cancel-payment" onclick="cancelPayment()">
-              Отмена
-            </button>
-          </div>
-        </div>
-        <!-- main end-->
+<html lang="en">
+<head>
+  
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Уборка подъездов</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <style>
+    /* ALL */
+*, *::after, *::before{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ALL END  */
+
+/* CONTAINER */
+
+.container{
+  width: 750px;
+  margin: 100px auto;
+
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+/* CONTAINER END */
+
+/* HEADER */
+
+.header__div{
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 6px 6px 0 0;
+}
+
+.header__div-item-label{
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 2px 35px;
+
+}
+
+.main__div-text{
+  font-size: 18px;
+}
+
+/* HEADER END */
+
+
+/* MAIN */
+
+.main{
+  width: 750px;
+  height: 100%;
+  min-height: 210px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 0 0 6px 6px;
+}
+
+.main__div{
+  margin: 15px 0px 0px 35px;
+  display: flex;
+  flex-wrap: wrap
+
+
+}
+
+.main__div-text{
+  margin-top: 1px;
+}
+
+.main__div-input-type{
+  margin-left: 40px;
+  margin-top: 0px;
+}
+
+.main__div-input{
+  width: 200px;
+  height: 30px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 5px;
+}
+
+.main__div-input:focus{
+  box-shadow: 1px 1px 10px #008000;
+}
+
+.main__div-button-type{
+  margin: 2px 0px 0px 40px;
+}
+
+.main__div-button{
+  width: 95px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  
+}
+
+.main__div-button:hover{
+  background-color:bisque;
+}
+.main__div-button:active{
+  background-color: #fff;
+}
+
+.result__from-js{
+ 
+  width: 75%;
+  margin: 20px 0;
+  line-height: 2;
+  display: flex;
+  justify-content: space-around;
+}
+
+.result__from-js__button{
+  width: 95px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.result__from-js__button:hover{
+  background-color:bisque;
+}
+.result__from-js__button:active{
+  background-color: #fff;
+}
+
+.result__from-js-input-sum{
+  width: 130px;
+  height: 30px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 5px;
+  
+  
+}
+
+.result__from-js-input-sum:focus{
+  box-shadow: 1px 1px 10px #008000;
+}
+
+/* MAIN end */
+  </style>
+  
+  <!-- container -->
+  <div class="container">
+
+    <!-- header -->
+    <div class="header__div">
+
+      <div class="header__div-item">
+        <h1>
+          <strong class="header__div-item-label">Форма</strong>
+        </h1>
       </div>
-      <!-- container end -->
-      <script>
-        var input = document.getElementById("main__div-input");
+
+    </div>
+    <!-- header end-->
+
+    <!-- main -->
+    <div class="main">
+      <div class="main__div">
+        <div class="main__div-text-type">
+          <h2 class="main__div-text">Лицевой счет</h2>
+        </div>
+        <!-- ===== -->
+        <div class="main__div-input-type">
+          <input type="number" class="main__div-input" id="main__div-input">
+        </div>
+        <!-- ===== -->
+        <div class="main__div-button-type">
+          <button class="main__div-button" onclick="getInfo()">Проверить</button>
+        </div>
+      </div>
+      <!-- main__div end -->
+      <div>
+
+      </div>
+
+      <div class="result__div" id="result__div">
+      
+      </div>
+
+      <div>
+        <button onclick="btnClose()">
+          Закрыть
+        </button>
+      </div>
+
+      <div>
+        <button id="cancel-payment" onclick="cancelPayment()">
+          Отмена
+        </button>
+      </div>
+    </div>
+    <!-- main end-->
+
+
+  </div>
+  <!-- container end -->
+  <script>
+       var input = document.getElementById("main__div-input");
         var resultDiv = document.getElementById("result__div");
-        var cancelDiv = document.getElementById("cancel-payment");
+        var cancelDiv = document.getElementById("cancel-payment")
         var accountNumber;
 
         function btnClose() {
@@ -205,34 +245,21 @@
         }
 
         function cancelFormHTML() {
-          var text =
-            '<div>Transaction number <p>:</p> <p><input type="number" size="20" name="num"  max="20"</div>';
-          return text;
-        }
+          var text = `<div>Transaction number
+                    <p>:</p>
+                <p><input type="number" size="20" name="num"  max="20"</div>`
+          return text
+       };
+
+
 
         var urlCheckAccount = "http://127.0.0.1:8001/api/check-account";
         var urlpayAccount = "http://127.0.0.1:8001/api/make-payment";
         var urlcancelAccount = "http://127.0.0.1:8001/api/cancel-payment";
 
-        // get the csrf token to access the backend endpoints
-        function getCookie(name) {
-          var cookieValue = null;
-          if (document.cookie && document.cookie != "") {
-            var cookies = document.cookie.split(";");
-            console.log(cookies);
-            for (var i = 0; i < cookies.length; i++) {
-              var cookie = cookies[i].trim();
-              // Does this cookie string begin with the name we want?
-              if (cookie.substring(0, name.length + 1) == name + "=") {
-                cookieValue = decodeURIComponent(
-                  cookie.substring(name.length + 1)
-                );
-                break;
-              }
-            }
-          }
-          return cookieValue;
-        }
+        // var urlCheckAccount = 'http://192.168.3.190:8000/api/check-account';
+        // var urlpayAccount = 'http://192.168.3.190:8000/api/make-payment';
+        // var urlcancelAccount = 'http://192.168.3.190:8000/api/make-payment';
 
         var xhr = new XMLHttpRequest();
 
@@ -250,45 +277,37 @@
             "application/json; charset=utf-8"
           );
           xhr.send(jsonRandomNumber);
+          console.log(jsonRandomNumber)
 
-          console.log(jsonRandomNumber);
+          xhr.onload = function() {
+            var cancelObj = JSON.parse(xhr.response);
+            cancelDiv.innerHTML = cancelFormHTML
 
-          var cancelObj = JSON.parse(xhr.response);
-          cancelDiv.innerHTML = cancelFormHTML();
-        }
+          }
+        };
+        
 
         function getInfo() {
-          // console.log(checkAccountInput.value);
-          var inputNumber = input.value;
-          console.log(inputNumber + " getCheck inputNumber");
-          var jsonIdStudent = JSON.stringify({
-            account_number: inputNumber,
-          });
+            // console.log(checkAccountInput.value);
+            var inputNumber = input.value;
+            console.log(inputNumber + " getCheck inputNumber");
+            var jsonIdStudent = JSON.stringify({
+                account_number: inputNumber
+            });
+            xhr.open("POST", urlCheckAccount);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(jsonIdStudent);
+            console.log(jsonIdStudent)
+            // тело ответа 
+            xhr.onload = function () {
+                var responseObj = JSON.parse(xhr.response);
+                resultDiv.innerHTML = "XHR";
+                console.log(responseObj["message"]);
+                resultDiv.innerHTML = paymentFormHTML(responseObj.message);
+            };
+            // checkAccountInput.value = "";
+        };
 
-          var csrf_token = getCookie("csrftoken");
-
-          xhr.open("POST", urlCheckAccount);
-          xhr.setRequestHeader("csrfmiddlewaretoken", '{{ csrf_token }}');
-          xhr.setRequestHeader("Accept", "application/json");
-          xhr.setRequestHeader(
-            "Content-Type",
-            "application/json; charset=utf-8"
-          );
-          xhr.send(jsonIdStudent);
-
-          console.log(xhr.headers);
-
-          console.log(jsonIdStudent);
-
-          // тело ответа
-          xhr.onload = function () {
-            var responseObj = JSON.parse(xhr.response);
-            resultDiv.innerHTML = "XHR";
-            console.log(responseObj["message"]);
-            resultDiv.innerHTML = paymentFormHTML(responseObj.message);
-          };
-          // checkAccountInput.value = "";
-        }
 
         function but() {
           var input_amount = document.getElementById("amount-id");
@@ -304,7 +323,7 @@
             resultDiv.innerHTML +=
               '<h4 style="color: red; text-align:center;">Введите сумму больше чем ноль</h4>';
           } else {
-            xhr.open("POST", urlpayAccount);
+            xhr.open('POST', urlpayAccount);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(body_data);
             xhr.onload = function () {
@@ -312,10 +331,7 @@
               console.log(responseObjpay);
               if (responseObjpay.success === true) {
                 input_amount.value = "";
-                resultDiv.innerHTML +=
-                  '<h4 style="text-align:center;">' +
-                  responseObjpay.message +
-                  "</h4>";
+                resultDiv.innerHTML += '<h4 style="text-align:center;">' + responseObjpay.message + '</h4>';
                 window.close();
               } else {
                 resultDiv.innerHTML +=
