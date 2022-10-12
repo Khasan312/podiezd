@@ -187,7 +187,16 @@ css = """
 """
 
 
-def js_file(cashregisterId, kioskId, receiptId, productCode, partnerId, userName, time, signature):
+def js_file(
+    cashregisterId,
+    kioskId,
+    receiptId,
+    productCode,
+    partnerId,
+    userName,
+    time,
+    signature,
+):
     text = """ var input = document.getElementById("main__div-input");
         var resultDiv = document.getElementById("result__div");
         var accountNumber;
@@ -226,7 +235,7 @@ def js_file(cashregisterId, kioskId, receiptId, productCode, partnerId, userName
     text2 = f"""
         var urlCheckAccount = 'http://192.168.3.190:8000/api/check-account/?cashregister_id={cashregisterId}&kiosk_id={kioskId}&receipt_id={receiptId}&productcode={productCode}&partner_id={partnerId}&user_name={userName}&time={time}&signature={signature}";';
         var urlpayAccount = 'http://192.168.3.190:8000/api/make-payment';
-        """ 
+        """
     text3 = """
         var xhr = new XMLHttpRequest();
 

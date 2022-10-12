@@ -2,11 +2,9 @@ from datetime import datetime
 from usluga_payment.models import BaipInfo
 
 
-
-
-def cancel_baip_account_data(account_number,amount, action, name, **kwargs):
+def cancel_baip_account_data(account_number, amount, action, name, **kwargs):
     baip_info = BaipInfo.objects.latest()
-    return  f"""<salesorder_request type="ns1:Msg_salesorder_soap_requestType">
+    return f"""<salesorder_request type="ns1:Msg_salesorder_soap_requestType">
   <general>
     <partner_transaction_id></partner_transaction_id>
     <kiosk_id>{baip_info.kiosk_id}</kiosk_id>

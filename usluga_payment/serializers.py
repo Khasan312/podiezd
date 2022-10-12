@@ -16,6 +16,5 @@ class MakePaymentSerializer(ModelSerializer):
         return attrs
 
 
-
 class TransactionCancelSerializer(serializers.Serializer):
     transaction_id = serializers.CharField()

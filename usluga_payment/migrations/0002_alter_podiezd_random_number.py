@@ -7,13 +7,19 @@ import usluga_payment.utils
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('usluga_payment', '0001_initial'),
+        ("usluga_payment", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='podiezd',
-            name='random_number',
-            field=models.CharField(blank=True, default=usluga_payment.utils.create_new_ref_number, editable=False, max_length=10, unique=True),
+            model_name="podiezd",
+            name="random_number",
+            field=models.CharField(
+                blank=True,
+                default=usluga_payment.utils.create_new_ref_number,
+                editable=False,
+                max_length=10,
+                unique=True,
+            ),
         ),
     ]

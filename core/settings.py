@@ -29,7 +29,7 @@ SECRET_KEY = (
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -43,8 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # app
     "usluga_payment",
-    'rest_framework',
-
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -141,16 +140,19 @@ STATIC_FILES = [
     os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "usluga_payment", "static"),
 ]
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-
 
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+    'rest_framework.permissions.AllowAny',
+]
+}

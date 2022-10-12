@@ -7,17 +7,17 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('usluga_payment', '0006_baipinfo'),
+        ("usluga_payment", "0006_baipinfo"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='baipinfo',
-            options={'get_latest_by': ['created']},
+            name="baipinfo",
+            options={"get_latest_by": ["created"]},
         ),
         migrations.AddField(
-            model_name='baipinfo',
-            name='created',
+            model_name="baipinfo",
+            name="created",
             field=models.DateTimeField(default=django.utils.timezone.now),
         ),
     ]

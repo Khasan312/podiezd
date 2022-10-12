@@ -167,7 +167,7 @@
 
     </div>
     <!-- header end-->
-
+    
     <!-- main -->
     <div class="main">
       <div class="main__div">
@@ -179,6 +179,7 @@
           <input type="number" class="main__div-input" id="main__div-input">
         </div>
         <!-- ===== -->
+        {% csrf_token %}
         <div class="main__div-button-type">
           <button class="main__div-button" onclick="getInfo()">Проверить</button>
         </div>
@@ -212,12 +213,12 @@
   </div>
   <!-- container end -->
   <script>
-       var input = document.getElementById("main__div-input");
-        var resultDiv = document.getElementById("result__div");
-        var cancelDiv = document.getElementById("cancel-payment")
-        var main = document.getElementsByClassName('main__div')[0];
-        var buttons =  document.getElementsByClassName('buttons')[0]
-        var accountNumber;
+var input = document.getElementById("main__div-input");
+var resultDiv = document.getElementById("result__div");
+var cancelDiv = document.getElementById("cancel-payment")
+var main = document.getElementsByClassName('main__div')[0];
+var buttons =  document.getElementsByClassName('buttons')[0]
+var accountNumber;
 
 
 
@@ -289,6 +290,7 @@
         
 
         function getInfo() {
+            var csrfToken = xhr.getResponseHeader('x-csrf-token');
             // console.log(checkAccountInput.value);
             var inputNumber = input.value;
             console.log(inputNumber + " getCheck inputNumber");
@@ -297,14 +299,17 @@
             });
             console.log(jsonIdStudent);
             xhr.open("POST", urlCheckAccount);
-            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader('x-csrf-token', csrfToken);       
+            xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+            xhr.setRequestHeader("Accept", "application/json");      
+
             xhr.send(jsonIdStudent);
             console.log(jsonIdStudent)
             // тело ответа 
             xhr.onload = function () {
                 var responseObj = JSON.parse(xhr.response);
                 resultDiv.innerHTML = "XHR";
-                console.log(responseObj["message"],xhr);
+                console.log(xhr.response);
                 resultDiv.innerHTML = paymentFormHTML(responseObj.message);
             };
             // checkAccountInput.value = "";
@@ -325,7 +330,7 @@
             resultDiv.innerHTML += '<h4 style="color: red; text-align:center;">Введите сумму больше чем ноль</h4>';
           } else {
             xhr.open('POST', urlpayAccount);
-            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
             xhr.send(body_data);
             xhr.onload = function () {
               var responseObjpay = JSON.parse(xhr.response);
@@ -333,7 +338,7 @@
               if (responseObjpay.success === true) {
                 input_amount.value = "";
                 resultDiv.innerHTML += '<h4 style="text-align:center;">' + responseObjpay.message + '</h4>';
-                window.close();
+                // window.close();
               } else {
                 resultDiv.innerHTML += '<h5 style="text-align:center;>Оплата не прошла</h5>';
               }

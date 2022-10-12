@@ -1,18 +1,18 @@
 import requests
 from datetime import datetime
 import xmltodict
-from usluga_payment.views.api import * 
+from usluga_payment.views.api import *
 from usluga_payment.models import BaipInfo, Podiezd
+import xml.dom.minidom
 
 
+URL = "http://192.168.181.2/Operator.ashx"
 
 
-URL = 'http://192.168.181.2/Operator.ashx'
-
-def prepare_baip_account_data(account_number,amount, action, name, **kwargs):
-     baip_info = BaipInfo.objects.latest()
-     podiezd = Podiezd.objects.latest()
-     return  f"""<salesorder_request type="ns1:Msg_salesorder_soap_requestType">
+def prepare_baip_account_data(account_number, amount, action, name, **kwargs):
+    baip_info = BaipInfo.objects.latest()
+    podiezd = Podiezd.objects.latest()
+    return f"""<salesorder_request type="ns1:Msg_salesorder_soap_requestType">
   <general>
     <partner_transaction_id>{podiezd.random_number}</partner_transaction_id>
     <kiosk_id>{baip_info.kiosk_id}</kiosk_id>
@@ -28,26 +28,26 @@ def prepare_baip_account_data(account_number,amount, action, name, **kwargs):
       <partner_row_id>1</partner_row_id>
       <kiosk_productcode>2280007001455</kiosk_productcode>
       <partner_productcode>2280007001455</partner_productcode>
-      <transaction_type>SALES</transaction_type>
+      <transaction_type>{podiezd.action}</transaction_type>
       <quantity>1</quantity>
-      <price>{amount}</price>
-      <description>{{NL}}№ транзакции:{podiezd.random_number}{{NL}}Абонент:{name}{{NL}}</description >
+      <price>{podiezd.amount}</price>
+      <description>{{NL}}№ транзакции:{podiezd.random_number}{{NL}}Абонент:{podiezd.name}{{NL}}</description >
       <partner_customer_id>1111</partner_customer_id>
     </item>
   </products>
-</salesorder_request>""".encode('utf-8')
+</salesorder_request>""".encode(
+        "utf-8"
+    )
 
 
+def send_baip_account_data(account_number, amount, action, name):
+    data = prepare_baip_account_data(account_number, amount, action, name)
+    headers = {"Content-Type": "application/xml"}
+    # s = requests.session()
 
+    response = requests.post(URL, data=data, headers=headers)
+    print('---------------------')
+    print(response.content)
+    response_content = xml.xmltodict.parse(response.content)
 
-def send_baip_account_data(account_number,amount, action, name):
-  data = prepare_baip_account_data(account_number, amount, action, name)
-  headers = {'Content-Type': 'application/xml'}
-  # s = requests.session()
-
-  response = requests.post(URL, data=data, headers=headers)
-  # print('---------------------')
-  # print(response.content)
-  response_content = xmltodict.parse(response.content)
-
-  return response_content
+    return response_content
