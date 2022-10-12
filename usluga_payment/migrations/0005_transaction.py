@@ -6,16 +6,24 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('usluga_payment', '0004_podiezd_name'),
+        ("usluga_payment", "0004_podiezd_name"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Transaction',
+            name="Transaction",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('transaction_number', models.IntegerField()),
-                ('name', models.CharField(max_length=128)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("transaction_number", models.IntegerField()),
+                ("name", models.CharField(max_length=128)),
             ],
         ),
     ]

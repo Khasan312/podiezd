@@ -1,9 +1,10 @@
-URL = 'http://192.168.181.2/Operator.ashx'
-from decouple import config
+URL = "http://192.168.181.2/Operator.ashx"
+import json
 
 import requests
-import json
 import xmltodict
+from decouple import config
+
 # TOKEN = config("CRM_TOKEN", default="")
 
 # data = {

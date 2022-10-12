@@ -1,13 +1,13 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
-from .models import Podiezd
+
+from usluga_payment.models import Podiezd
 
 
 class MakePaymentSerializer(ModelSerializer):
     class Meta:
         model = Podiezd
         fields = ["account_number", "amount"]
-        # fields = '__all__'
 
     def validate(self, attrs):
         if attrs["amount"] < 0:
@@ -16,6 +16,11 @@ class MakePaymentSerializer(ModelSerializer):
         return attrs
 
 
-
 class TransactionCancelSerializer(serializers.Serializer):
     transaction_id = serializers.CharField()
+
+
+class PodiezdSerializer(ModelSerializer):
+    class Meta:
+        model = Podiezd
+        fields = "__all__"

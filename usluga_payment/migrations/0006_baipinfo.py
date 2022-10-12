@@ -6,18 +6,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('usluga_payment', '0005_transaction'),
+        ("usluga_payment", "0005_transaction"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='BaipInfo',
+            name="BaipInfo",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('cashregister_id', models.IntegerField()),
-                ('kiosk_id', models.IntegerField()),
-                ('receipt_id', models.IntegerField()),
-                ('partner_id', models.IntegerField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("cashregister_id", models.IntegerField()),
+                ("kiosk_id", models.IntegerField()),
+                ("receipt_id", models.IntegerField()),
+                ("partner_id", models.IntegerField()),
             ],
         ),
     ]
