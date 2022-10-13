@@ -1,19 +1,12 @@
-URL = "http://192.168.181.2/Operator.ashx"
-from decouple import config
+def spin_words(sentence):
+    splited_string = sentence.split(' ')
+    empty_string = []
+    for i in splited_string:
+        if len(i) >= 5:
+            empty_string.append(i[::-1])
+        else:
+            empty_string.append(i)
+            
+    return " ".join(empty_string)
 
-import requests
-import json
-import xmltodict
-
-# TOKEN = config("CRM_TOKEN", default="")
-
-# data = {
-#         "token": TOKEN,
-#         "account_number": 123456789,
-#         "action": "check",
-#     }
-
-response = requests.get(URL)
-print(response.content)
-response_content = xmltodict.parse(response.text)
-print(response_content)
+print(spin_words('Hey fellow warriors'))
