@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views.api import CheckAccount, MakePayment, TransactionCancel
+from .views.api import CheckAccount, MakePayment, TransactionCancel, OperatorInfoView
 from .views.main import index
 
 urlpatterns = [
@@ -13,5 +13,10 @@ urlpatterns = [
         "api/cancel-payment",
         TransactionCancel.as_view(),
         name="cancel_account_api",
+    ),
+    path(
+        "api/operator-info",
+        OperatorInfoView.as_view(),
+        name="operator_info_api",
     ),
 ]

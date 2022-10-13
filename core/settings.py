@@ -149,13 +149,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
-<<<<<<< HEAD
-=======
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-    'rest_framework.permissions.AllowAny',
-]
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ]
 }
->>>>>>> 1a2a4dec27385be4a658250049321dcb20fe1d5b
