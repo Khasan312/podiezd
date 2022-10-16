@@ -7,6 +7,7 @@ from usluga_payment.models import Customer, Operator, Podiezd, Transaction
 class MakePaymentSerializer(serializers.Serializer):
     account_number = serializers.CharField()
     amount = serializers.DecimalField(max_digits=9, decimal_places=2)
+    transaction_num = serializers.IntegerField()
 
     def validate(self, attrs):
         if attrs["amount"] < 0:

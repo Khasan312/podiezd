@@ -76,8 +76,6 @@ class MakePayment(APIView):
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
 
-        print(data)
-
         # validate request data
         serializer = MakePaymentSerializer(data=data)
         serializer.is_valid(raise_exception=True)
@@ -101,13 +99,13 @@ class MakePayment(APIView):
             raise APIException(result, code=404)
 
         transaction = Transaction.objects.filter(
-            transaction_number=validated_data["account_number"]
+            transaction_number=validated_data["transaction_num"],
         ).first()
 
         # update transaction status
         transaction.status = "received"
         transaction.amount = validated_data["amount"]
-        transaction.save(update_fields=["status", "amount"])
+        transaction.save()
 
         if "operator_id" in data:
             operator = Operator.objects.filter(operator_id=data["operator_id"])
@@ -127,11 +125,11 @@ class MakePayment(APIView):
             customer=customer.first(),
         )
 
-        if not payment:
-            raise APIException(
-                {"message": "Payment was not complete", "status": False},
-                code=status.HTTP_400_BAD_REQUEST,
-            )
+        # if not payment:
+        #     raise APIException(
+        #         {"message": "Payment was not complete", "status": False},
+        #         code=status.HTTP_400_BAD_REQUEST,
+        #     )
 
         return Response(result, status=200)
 

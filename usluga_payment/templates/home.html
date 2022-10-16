@@ -283,7 +283,7 @@
             "<div>" +
             '<button onclick="make_payment()" class="result__from-js__button">Оплатить</button>' +
             "</div>" +
-            '</div>"';
+            "</div>";
           return text;
         }
 
@@ -335,11 +335,20 @@
           // тело ответа
           xhr_gi.onload = function () {
             var responseObj = xhr_gi.response;
-            resultDiv.innerHTML = "XHR";
-            resultDiv.innerHTML = paymentFormHTML(responseObj.customer.name);
 
-            // set transaction_id
-            transaction_id = responseObj.transaction.transaction_number;
+            console.log(xhr_gi.status);
+
+            if (xhr_gi.status == 200) {
+              resultDiv.innerHTML = paymentFormHTML(responseObj.customer.name);
+
+              // set transaction_id
+              transaction_id = responseObj.transaction.transaction_number;
+            } else if (xhr_gi.status == 403) {
+              resultDiv.innerHTML = "Something went wrong, please try ag";
+            } else {
+              console.log("")
+            }
+
           };
           // checkAccountInput.value = "";
         }
@@ -350,6 +359,7 @@
           var body_data = JSON.stringify({
             account_number: input.value,
             amount: parseInt(input_amount.value),
+            transaction_num: transaction_id,
             operator_id: operator_id,
           });
 
@@ -361,7 +371,6 @@
             resultDiv.innerHTML +=
               '<h4 style="color: red; text-align:center;">Введите сумму больше чем ноль</h4>';
           } else {
-            console.log("initiating request....");
             xhr_mp.open("POST", urlpayAccount);
             xhr_mp.setRequestHeader("Content-Type", "application/json");
             xhr_mp.send(body_data);
@@ -375,9 +384,12 @@
                   "</h4>";
                 // window.close();
               } else {
-                if (responseObjpay.detail.status == "False") {
+                if (responseObjpay.status == "False") {
+                  input_amount.value = "";
                   resultDiv.innerHTML +=
-                    '<h5 style="text-align:center;>Оплата не прошла</h5>';
+                    '<h4 style="text-align:center;">' +
+                    "Оплата не прошла" +
+                    "</h4>";
                 }
                 // resultDiv.innerHTML +=
                 //   '<h5 style="text-align:center;>Оплата не прошла</h5>';

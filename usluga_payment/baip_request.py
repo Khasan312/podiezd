@@ -49,7 +49,7 @@ def send_baip_account_data(transaction, operator, action, customer):
         return False
 
     response = requests.post(URL, data=data, headers=headers)
-    response_content = xml.xmltodict.parse(response.content)
+    response_content = xmltodict.parse(response.content)
 
     return response_content
 
