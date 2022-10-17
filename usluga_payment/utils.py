@@ -1,5 +1,6 @@
-from usluga_payment import models
 import random
+
+from usluga_payment import models
 
 
 def create_new_ref_number():

@@ -1,351 +1,380 @@
 <html>
-<html lang="en">
-<head>
-  
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Уборка подъездов</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-  <style>
-    /* ALL */
-*, *::after, *::before{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Уборка подъездов</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto+Condensed:wght@400;700&display=swap"
+        rel="stylesheet"
+      />
+    </head>
+    <body>
+      <style>
+        /* ALL */
+        *,
+        *::after,
+        *::before {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
 
-/* ALL END  */
+        /* ALL END  */
 
-/* CONTAINER */
+        /* CONTAINER */
 
-.container{
-  width: 750px;
-  margin: 100px auto;
+        .container {
+          width: 750px;
+          margin: 100px auto;
 
-  font-family: 'Roboto Condensed', sans-serif;
-}
+          font-family: "Roboto Condensed", sans-serif;
+        }
 
-/* CONTAINER END */
+        /* CONTAINER END */
 
-/* HEADER */
+        /* HEADER */
 
-.header__div{
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: 6px 6px 0 0;
-}
+        .header__div {
+          background-color: #f5f5f5;
+          border: 1px solid #ddd;
+          border-radius: 6px 6px 0 0;
+        }
 
-.header__div-item-label{
-  font-size: 18px;
-  font-weight: 700;
-  margin: 0 0 2px 35px;
+        .header__div-item-label {
+          font-size: 18px;
+          font-weight: 700;
+          margin: 0 0 2px 35px;
+        }
 
-}
+        .main__div-text {
+          font-size: 18px;
+        }
 
-.main__div-text{
-  font-size: 18px;
-}
+        /* HEADER END */
 
-/* HEADER END */
+        /* MAIN */
 
+        .main {
+          width: 750px;
+          height: 100%;
+          min-height: 210px;
+          background-color: #f5f5f5;
+          border: 1px solid #ddd;
+          border-radius: 0 0 6px 6px;
+        }
 
-/* MAIN */
+        .main__div {
+          margin: 15px 0px 0px 35px;
+          display: flex;
+          flex-wrap: wrap;
+        }
 
-.main{
-  width: 750px;
-  height: 100%;
-  min-height: 210px;
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: 0 0 6px 6px;
-}
+        .main__div-text {
+          margin-top: 1px;
+        }
 
-.main__div{
-  margin: 15px 0px 0px 35px;
-  display: flex;
-  flex-wrap: wrap
+        .main__div-input-type {
+          margin-left: 40px;
+          margin-top: 0px;
+        }
 
+        .main__div-input {
+          width: 200px;
+          height: 30px;
+          border: 1px solid #ddd;
+          border-radius: 6px;
+          padding: 5px;
+        }
 
-}
+        .main__div-input:focus {
+          box-shadow: 1px 1px 10px #008000;
+        }
 
-.main__div-text{
-  margin-top: 1px;
-}
+        .main__div-button-type {
+          margin: 2px 0px 0px 40px;
+        }
 
-.main__div-input-type{
-  margin-left: 40px;
-  margin-top: 0px;
-}
+        .main__div-button {
+          width: 95px;
+          height: 28px;
+          border-radius: 6px;
+          border: 1px solid #ddd;
+        }
 
-.main__div-input{
-  width: 200px;
-  height: 30px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 5px;
-}
+        .main__div-button:hover {
+          background-color: bisque;
+        }
+        .main__div-button:active {
+          background-color: #fff;
+        }
 
-.main__div-input:focus{
-  box-shadow: 1px 1px 10px #008000;
-}
+        .result__from-js {
+          width: 75%;
+          margin: 20px 0;
+          line-height: 2;
+          display: flex;
+          justify-content: space-around;
+        }
 
-.main__div-button-type{
-  margin: 2px 0px 0px 40px;
-}
+        .result__from-js__button {
+          width: 95px;
+          height: 28px;
+          border-radius: 6px;
+          border: 1px solid #ddd;
+        }
 
-.main__div-button{
-  width: 95px;
-  height: 28px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-  
-}
+        .result__from-js__button:hover {
+          background-color: bisque;
+        }
+        .result__from-js__button:active {
+          background-color: #fff;
+        }
 
-.main__div-button:hover{
-  background-color:bisque;
-}
-.main__div-button:active{
-  background-color: #fff;
-}
+        .result__from-js-input-sum {
+          width: 130px;
+          height: 30px;
+          border: 1px solid #ddd;
+          border-radius: 6px;
+          padding: 5px;
+        }
 
-.result__from-js{
- 
-  width: 75%;
-  margin: 20px 0;
-  line-height: 2;
-  display: flex;
-  justify-content: space-around;
-}
+        .result__from-js-input-sum:focus {
+          box-shadow: 1px 1px 10px #008000;
+        }
 
-.result__from-js__button{
-  width: 95px;
-  height: 28px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-}
+        /* MAIN end */
+      </style>
 
-.result__from-js__button:hover{
-  background-color:bisque;
-}
-.result__from-js__button:active{
-  background-color: #fff;
-}
-
-.result__from-js-input-sum{
-  width: 130px;
-  height: 30px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 5px;
-  
-  
-}
-
-.result__from-js-input-sum:focus{
-  box-shadow: 1px 1px 10px #008000;
-}
-
-/* MAIN end */
-  </style>
-  
-  <!-- container -->
-  <div class="container">
-
-    <!-- header -->
-    <div class="header__div">
-
-      <div class="header__div-item">
-        <h1>
-          <strong class="header__div-item-label">Форма</strong>
-        </h1>
-      </div>
-
-    </div>
-    <!-- header end-->
-    
-    <!-- main -->
-    <div class="main">
-      <div class="main__div">
-        <div class="main__div-text-type">
-          <h2 class="main__div-text">Лицевой счет</h2>
+      <!-- container -->
+      <div class="container">
+        <!-- header -->
+        <div class="header__div">
+          <div class="header__div-item">
+            <h1>
+              <strong class="header__div-item-label">Форма</strong>
+            </h1>
+          </div>
         </div>
-        <!-- ===== -->
-        <div class="main__div-input-type">
-          <input type="number" class="main__div-input" id="main__div-input">
+        <!-- header end-->
+
+        <!-- main -->
+        <div class="main">
+          <div class="main__div">
+            <div class="main__div-text-type">
+              <h2 class="main__div-text">Лицевой счет</h2>
+            </div>
+            <!-- ===== -->
+            <div class="main__div-input-type">
+              <input
+                type="number"
+                class="main__div-input"
+                id="main__div-input"
+              />
+            </div>
+            <!-- ===== -->
+            <div class="main__div-button-type">
+              <button class="main__div-button" onclick="getInfo()">
+                Проверить
+              </button>
+            </div>
+          </div>
+          <!-- main__div end -->
+          <div></div>
+
+          <div class="result__div" id="result__div"></div>
+
+          <div>
+            <button onclick="btnClose()">Закрыть</button>
+          </div>
+
+          <div>
+            <button id="cancel-payment" onclick="cancelPayment()">
+              Отмена
+            </button>
+          </div>
         </div>
-        <!-- ===== -->
-        {% csrf_token %}
-        <div class="main__div-button-type">
-          <button class="main__div-button" onclick="getInfo()">Проверить</button>
-        </div>
+        <!-- main end-->
       </div>
-      <!-- main__div end -->
-      <div>
+      <!-- container end -->
 
-      </div>
+      <script>
+        var input = document.getElementById("main__div-input");
+        var resultDiv = document.getElementById("result__div");
+        var cancelDiv = document.getElementById("cancel-payment");
+        var accountNumber;
+        var urlCheckAccount = "http://192.168.3.190:8000/api/check-account";
+        var urlpayAccount = "http://192.168.3.190:8000/api/make-payment";
+        var urlcancelAccount = "http://192.168.3.190:8000/api/cancel-payment";
+        var urlOperatorInfo = "http://192.168.3.190:8000/api/operator-info";
 
-      <div class="result__div" id="result__div">
-      
-      </div>
+        function getParameterByName(name) {
+          var url = arguments.length <= 1 || arguments[1] === undefined ? window.location.href : arguments[1];
 
-      <div class="buttons" style="display: flex;justify-content: space-evenly;margin-top: 50px;">
-        <div>
-          <button class="main__div-button" onclick="btnClose()">
-            Закрыть
-          </button>
-        </div>
-  
-        <div>
-          <button class="main__div-button" id="cancel-payment" onclick="cancelPayment()">
-            Отмена
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- main end-->
+          name = name.replace(/[\[\]]/g, "\\$&");
+          var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+              results = regex.exec(url);
+          if (!results) return null;
+          if (!results[2]) return "";
+          return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
 
+        var cashregister_id = getParameterByName("cashregister_id");
+        var kiosk_id = getParameterByName("kiosk_id");
+        var receipt_id = getParameterByName("receipt_id");
+        var partner_id = getParameterByName("partner_id");
+        var operator_id;
 
-  </div>
-  <!-- container end -->
-  <script>
-var input = document.getElementById("main__div-input");
-var resultDiv = document.getElementById("result__div");
-var cancelDiv = document.getElementById("cancel-payment")
-var main = document.getElementsByClassName('main__div')[0];
-var buttons =  document.getElementsByClassName('buttons')[0]
-var accountNumber;
+        // transaction related info
+        var transaction_id;
 
+        // var urlCheckAccount = 'http://192.168.3.190:8000/api/check-account';
+        // var urlpayAccount = 'http://192.168.3.190:8000/api/make-payment';
+        // var urlcancelAccount = 'http://192.168.3.190:8000/api/make-payment';
 
+        function getOperatorId() {
+          var request = new XMLHttpRequest();
+          var params = JSON.stringify({
+            cashregister_id: cashregister_id,
+            kiosk_id: kiosk_id,
+            receipt_id: receipt_id,
+            partner_id: partner_id
+          });
 
-        function btnClose () {
-        
-        window.close();
-        };
+          request.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              console.log(this.response.operator_id);
+              operator_id = this.response.operator_id;
+            }
+          };
+
+          request.open("POST", urlOperatorInfo);
+          request.setRequestHeader("Content-Type", "application/json");
+          request.responseType = "json";
+          request.send(params);
+        }
+
+        // get the current operator backend ID
+        getOperatorId();
+
+        function btnClose() {
+          window.close();
+        }
 
         function paymentFormHTML(clientName) {
-          var text =  '<div class="result__from-js">'+
-                  "<div>" +
-                  "<div>" +
-                  "<strong>"+
-                  "Абонент:</strong> " + 
-                  clientName + 
-                  "</div>"+
-                  '<div style="display: flex;">'+  
-                  '<div>'+
-                  'Сумма платежа'+
-                  '</div>'+
-                  '<div style="margin-left: 20px;">'+
-                  '<input type"number" class="result__from-js-input-sum" id="amount-id"> сом.'  +
-                  '</div>'+
-                  '</div>'+ 
-                  '</div>'+ 
-                  '<div>'+
-                  '<button onclick="but()" class="result__from-js__button">Оплатить</button>'+
-                  '</div>' +
-                  '</div>"';
+  var text = '<div class="result__from-js">' + "<div>"
+             + "<div>" + "<strong>" + 
+              "Абонент:</strong> " + clientName + 
+              "</div>" + '<div style="display: flex;">'
+                 + "<div>" + "Сумма платежа" + "</div>" + 
+                 '<div style="margin-left: 20px;">' +
+                   '<input type"number" class="result__from-js-input-sum" id="amount-id"> сом.' +
+                    "</div>" + "</div>" + "</div>" + "<div>" + '<button onclick="make_payment()" class="result__from-js__button">Оплатить</button>' + "</div>" + '</div>"';
+  return text;
+}
+
+        
+        function getInfo() {
+          // console.log(checkAccountInput.value);
+          var inputNumber = input.value;
+          var jsonIdStudent = JSON.stringify({
+            account_number: inputNumber,
+            operator_id: operator_id
+          });
+
+          var xhr_gi = new XMLHttpRequest();
+
+          xhr_gi.open("POST", urlCheckAccount);
+          xhr_gi.setRequestHeader("Content-Type", "application/json");
+          xhr_gi.responseType = "json";
+          xhr_gi.send(jsonIdStudent);
+
+          // тело ответа
+          xhr_gi.onload = function () {
+            var responseObj = xhr_gi.response;
+            resultDiv.innerHTML = "XHR";
+            resultDiv.innerHTML = paymentFormHTML(responseObj.customer.name);
+
+            // set transaction_id
+            transaction_id = responseObj.transaction.transaction_number;
+          };
+          // checkAccountInput.value = "";
+        }
+
+        function make_payment() {
+              var input_amount = document.getElementById("amount-id");
+
+              var body_data = JSON.stringify({
+                account_number: input.value,
+                amount: parseInt(input_amount.value),
+                transaction_num: transaction_id,
+                operator_id: operator_id
+              });
+
+              console.log("Send payment request....");
+
+              xhr_mp = new XMLHttpRequest();
+
+              if (input_amount.value <= 0) {
+                resultDiv.innerHTML += '<h4 style="color: red; text-align:center;">Введите сумму больше чем ноль</h4>';
+              } else {
+                console.log("initiating request....");
+                xhr_mp.open("POST", urlpayAccount);
+                xhr_mp.setRequestHeader("Content-Type", "application/json");
+                xhr_mp.send(body_data);
+                xhr_mp.onload = function () {
+                  var responseObjpay = JSON.parse(xhr_mp.response);
+                  if (responseObjpay.success == true) {
+                    input_amount.value = "";
+                    resultDiv.innerHTML += '<h4 style="text-align:center;">' + responseObjpay.message + "</h4>";
+                    // window.close();
+                  } else {
+                      if (responseObjpay.detail.status == "False") {
+                        input.value = '';
+                        resultDiv.innerHTML += '<h4 style="text-align:center;">' + "Оплата не прошла" + "</h4>";
+                      }
+                      // resultDiv.innerHTML +=
+                      //   '<h5 style="text-align:center;>Оплата не прошла</h5>';
+                    }
+                };
+              }
+            }
+
+
+            function cancelFormHTML() {
+            var text = '<meta charset="utf-8">'+
+                        '<title>Значение number (input-type)</title>'+'<fieldset> <legend>Отмена транзакции</legend></fieldset>'
+                        +'<p><input type="number" min="0" placeholder="Номер транзакции" list="numbList"></p>'
+                        +'<input id="numbList"></input>'+'<div><button onclick="btnClose()">Закрыть</button></div>';
+            console.log('Aiteg');
             return text;
-        };
-
-        function cancelFormHTML() {
-          var text = `<form>
-  <input class="main__div-input" type="number">
-  <input class="main__div-button" type="submit">
-</form>`
-
-          return text
-       };
-
-
-
-
-        var urlCheckAccount = 'http://192.168.3.190:8000/api/check-account';
-        var urlpayAccount = 'http://192.168.3.190:8000/api/make-payment';
-        var urlcancelAccount = 'http://192.168.3.190:8000/api/cancel-payment';
-
-        var xhr = new XMLHttpRequest();
-
+}
 
         function cancelPayment() {
-          var inputNumber = input.value
+          console.log('Rena')
+          var inputNumber = input.value;
           var jsonRandomNumber = JSON.stringify({
-            random_number: inputNumber
-          });
-          xhr.open('POST', urlcancelAccount);
-          xhr.setRequestHeader('Content-Type', 'application/json');
-          xhr.send(jsonRandomNumber);
-          console.log(jsonRandomNumber)
-          cancelDiv.style.display = 'none'
-          main.innerHTML = cancelFormHTML();
-          xhr.onload = function() {
-            var cancelObj = JSON.parse(xhr.response);
-            // cancelDiv.innerHTML = cancelFormHTML();
-
-          }
-        };
-        
-
-        function getInfo() {
-            var csrfToken = xhr.getResponseHeader('x-csrf-token');
-            // console.log(checkAccountInput.value);
-            var inputNumber = input.value;
-            console.log(inputNumber + " getCheck inputNumber");
-            var jsonIdStudent = JSON.stringify({
-                account_number: inputNumber
-            });
-            console.log(jsonIdStudent);
-            xhr.open("POST", urlCheckAccount);
-            xhr.setRequestHeader('x-csrf-token', csrfToken);       
-            xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-            xhr.setRequestHeader("Accept", "application/json");      
-
-            xhr.send(jsonIdStudent);
-            console.log(jsonIdStudent)
-            // тело ответа 
-            xhr.onload = function () {
-                var responseObj = JSON.parse(xhr.response);
-                resultDiv.innerHTML = "XHR";
-                console.log(xhr.response);
-                resultDiv.innerHTML = paymentFormHTML(responseObj.message);
-            };
-            // checkAccountInput.value = "";
-        };
-
-
-        function but() {
-          var input_amount = document.getElementById("amount-id");
-
-          var body_data = JSON.stringify({
-            account_number: input.value,
-            amount: parseInt(input_amount.value)
+            transaction_id: inputNumber
           });
 
-          console.log(body_data);
+          var xhr_can = new XMLHttpRequest();
 
-          if (input_amount.value <= 0) {
-            resultDiv.innerHTML += '<h4 style="color: red; text-align:center;">Введите сумму больше чем ноль</h4>';
-          } else {
-            xhr.open('POST', urlpayAccount);
-            xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-            xhr.send(body_data);
-            xhr.onload = function () {
-              var responseObjpay = JSON.parse(xhr.response);
-              console.log(responseObjpay);
-              if (responseObjpay.success === true) {
-                input_amount.value = "";
-                resultDiv.innerHTML += '<h4 style="text-align:center;">' + responseObjpay.message + '</h4>';
-                // window.close();
-              } else {
-                resultDiv.innerHTML += '<h5 style="text-align:center;>Оплата не прошла</h5>';
-              }
-            };
+
+          xhr_can.open("POST", urlcancelAccount);
+          // xhr_can.setRequestHeader("x-csrf-token", getCookie("csrftoken"));
+          xhr_can.setRequestHeader("Accept", "application/json");
+          xhr_can.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+          xhr_can.send(jsonRandomNumber);
+
+          xhr_can.onload = function () {
+            var cancelObj = xhr_can.response;
+            cancelDiv.innerHTML = cancelFormHTML();
           };
-        };
-
-  </script>
-</body>
+        }
+      </script>
+    </body>
+  </html>
 </html>
