@@ -295,11 +295,20 @@
           // тело ответа
           xhr_gi.onload = function () {
             var responseObj = xhr_gi.response;
-            resultDiv.innerHTML = "XHR";
-            resultDiv.innerHTML = paymentFormHTML(responseObj.customer.name);
 
-            // set transaction_id
-            transaction_id = responseObj.transaction.transaction_number;
+            console.log(xhr_gi.status);
+
+            if (xhr_gi.status == 200) {
+              resultDiv.innerHTML = paymentFormHTML(responseObj.customer.name);
+
+              // set transaction_id
+              transaction_id = responseObj.transaction.transaction_number;
+            } else if (xhr_gi.status == 403) {
+              resultDiv.innerHTML = "Something went wrong, please try ag";
+            } else {
+              console.log("")
+            }
+
           };
           // checkAccountInput.value = "";
         }

@@ -76,8 +76,6 @@ class MakePayment(APIView):
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
 
-        # print(data)
-
         # validate request data
         serializer = MakePaymentSerializer(data=data)
         serializer.is_valid(raise_exception=True)
