@@ -193,7 +193,7 @@
 
           <div>
             <button id="cancel-payment" onclick="cancelPayment()">
-              Отмена
+              Отменить
             </button>
             <div id="cancel-payment-div">
             </div>
@@ -204,9 +204,9 @@
       <!-- container end -->
 
       <script>
-        var input = document.getElementById("main__div-input");
+         var input = document.getElementById("main__div-input");
         var resultDiv = document.getElementById("result__div");
-        var cancelDiv = document.getElementById("cancel-payment");
+        var cancelDiv = document.getElementById("cancel-payment-div");
         var accountNumber;
         var urlCheckAccount = "http://192.168.3.190:8000/api/check-account";
         var urlpayAccount = "http://192.168.3.190:8000/api/make-payment";
@@ -214,11 +214,14 @@
         var urlOperatorInfo = "http://192.168.3.190:8000/api/operator-info";
 
         function getParameterByName(name) {
-          var url = arguments.length <= 1 || arguments[1] === undefined ? window.location.href : arguments[1];
+          var url =
+            arguments.length <= 1 || arguments[1] === undefined
+              ? window.location.href
+              : arguments[1];
 
           name = name.replace(/[\[\]]/g, "\\$&");
           var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-              results = regex.exec(url);
+            results = regex.exec(url);
           if (!results) return null;
           if (!results[2]) return "";
           return decodeURIComponent(results[2].replace(/\+/g, " "));
@@ -243,7 +246,7 @@
             cashregister_id: cashregister_id,
             kiosk_id: kiosk_id,
             receipt_id: receipt_id,
-            partner_id: partner_id
+            partner_id: partner_id,
           });
 
           request.onreadystatechange = function () {
@@ -267,24 +270,36 @@
         }
 
         function paymentFormHTML(clientName) {
-  var text = '<div class="result__from-js">' + "<div>"
-             + "<div>" + "<strong>" + 
-              "Абонент:</strong> " + clientName + 
-              "</div>" + '<div style="display: flex;">'
-                 + "<div>" + "Сумма платежа" + "</div>" + 
-                 '<div style="margin-left: 20px;">' +
-                   '<input type"number" class="result__from-js-input-sum" id="amount-id"> сом.' +
-                    "</div>" + "</div>" + "</div>" + "<div>" + '<button onclick="make_payment()" class="result__from-js__button">Оплатить</button>' + "</div>" + '</div>"';
-  return text;
-}
+          var text =
+            '<div class="result__from-js">' +
+            "<div>" +
+            "<div>" +
+            "<strong>" +
+            "Абонент:</strong> " +
+            clientName +
+            "</div>" +
+            '<div style="display: flex;">' +
+            "<div>" +
+            "Сумма платежа" +
+            "</div>" +
+            '<div style="margin-left: 20px;">' +
+            '<input type"number" class="result__from-js-input-sum" id="amount-id"> сом.' +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            "<div>" +
+            '<button onclick="make_payment()" class="result__from-js__button">Оплатить</button>' +
+            "</div>" +
+            '</div>"';
+          return text;
+        }
 
-        
         function getInfo() {
           // console.log(checkAccountInput.value);
           var inputNumber = input.value;
           var jsonIdStudent = JSON.stringify({
             account_number: inputNumber,
-            operator_id: operator_id
+            operator_id: operator_id,
           });
 
           var xhr_gi = new XMLHttpRequest();
@@ -308,82 +323,89 @@
             } else if (xhr_gi.status == 403) {
               resultDiv.innerHTML = "Something went wrong, please try ag";
             } else {
-              console.log("")
+              console.log("");
             }
-
           };
           // checkAccountInput.value = "";
         }
 
         function make_payment() {
-              var input_amount = document.getElementById("amount-id");
+          var input_amount = document.getElementById("amount-id");
 
-              var body_data = JSON.stringify({
-                account_number: input.value,
-                amount: parseInt(input_amount.value),
-                transaction_num: transaction_id,
-                operator_id: operator_id
-              });
+          var body_data = JSON.stringify({
+            account_number: input.value,
+            amount: parseInt(input_amount.value),
+            transaction_num: transaction_id,
+            operator_id: operator_id,
+          });
 
-              console.log("Send payment request....");
+          console.log("Send payment request....");
 
-              xhr_mp = new XMLHttpRequest();
+          xhr_mp = new XMLHttpRequest();
 
-              if (input_amount.value <= 0) {
-                resultDiv.innerHTML += '<h4 style="color: red; text-align:center;">Введите сумму больше чем ноль</h4>';
+          if (input_amount.value <= 0) {
+            resultDiv.innerHTML +=
+              '<h4 style="color: red; text-align:center;">Введите сумму больше чем ноль</h4>';
+          } else {
+            console.log("initiating request....");
+            xhr_mp.open("POST", urlpayAccount);
+            xhr_mp.setRequestHeader("Content-Type", "application/json");
+            xhr_mp.send(body_data);
+            xhr_mp.onload = function () {
+              var responseObjpay = JSON.parse(xhr_mp.response);
+              if (responseObjpay.success == true) {
+                input_amount.value = "";
+                resultDiv.innerHTML +=
+                  '<h4 style="text-align:center;">' +
+                  responseObjpay.message +
+                  "</h4>";
+                // window.close();
               } else {
-                console.log("initiating request....");
-                xhr_mp.open("POST", urlpayAccount);
-                xhr_mp.setRequestHeader("Content-Type", "application/json");
-                xhr_mp.send(body_data);
-                xhr_mp.onload = function () {
-                  var responseObjpay = JSON.parse(xhr_mp.response);
-                  if (responseObjpay.success == true) {
-                    input_amount.value = "";
-                    resultDiv.innerHTML += '<h4 style="text-align:center;">' + responseObjpay.message + "</h4>";
-                    // window.close();
-                  } else {
-                      if (responseObjpay.detail.status == "False") {
-                        input.value = '';
-                        resultDiv.innerHTML += '<h4 style="text-align:center;">' + "Оплата не прошла" + "</h4>";
-                      }
-                      // resultDiv.innerHTML +=
-                      //   '<h5 style="text-align:center;>Оплата не прошла</h5>';
-                    }
-                };
+                if (responseObjpay.detail.status == "False") {
+                  input.value = "";
+                  resultDiv.innerHTML +=
+                    '<h4 style="text-align:center;">' +
+                    "Оплата не прошла" +
+                    "</h4>";
+                }
+                // resultDiv.innerHTML +=
+                //   '<h5 style="text-align:center;>Оплата не прошла</h5>';
               }
-            }
-
+            };
+          }
+        }
 
         function cancelFormHTML() {
-          var cancelPaymentDiv = document.getElementById("cancel-payment-div");
-          
-          cancelPaymentDiv.innerHTML = '<title>Значение number (input-type)</title>'+'<fieldset> <legend>Отмена транзакции</legend></fieldset>'
-                    +'<p><input type="number" min="0" placeholder="Номер транзакции"</p>'
-                    '<div><button onclick="btnClose()">Закрыть</button></div>';
-        console.log('Aiteg');
-       
-}
+          var text =
+            "<title>Значение number (input-type)</title>" +
+            "<fieldset> <legend>Отмена транзакции</legend></fieldset>" +
+            '<p><input type="number" min="0" placeholder="Номер транзакции"</p>'+
+          ('<div><button onclick="cancelPayment()">Отменить</button></div>');
+          console.log("Aiteg");
+          return text;
+        }
 
         function cancelPayment() {
-          console.log('Rena')
+          console.log("Rena");
           var inputNumber = input.value;
           var jsonRandomNumber = JSON.stringify({
-            transaction_id: inputNumber
+            transaction_id: inputNumber,
           });
 
           var xhr_can = new XMLHttpRequest();
 
-
           xhr_can.open("POST", urlcancelAccount, true);
           // xhr_can.setRequestHeader("x-csrf-token", getCookie("csrftoken"));
           xhr_can.setRequestHeader("Accept", "application/json");
-          xhr_can.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-          xhr_can.responseType = 'json'
+          xhr_can.setRequestHeader(
+            "Content-Type",
+            "application/json; charset=utf-8"
+          );
+          xhr_can.responseType = "json";
           xhr_can.send(jsonRandomNumber);
 
           xhr_can.onload = function () {
-            var cancelObj = (xhr_can.response);
+            var cancelObj = xhr_can.response;
             cancelDiv.innerHTML = cancelFormHTML();
           };
         }
