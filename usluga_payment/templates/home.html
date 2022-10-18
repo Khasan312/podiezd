@@ -195,6 +195,8 @@
             <button id="cancel-payment" onclick="cancelPayment()">
               Отмена
             </button>
+            <div id="cancel-payment-div">
+            </div>
           </div>
         </div>
         <!-- main end-->
@@ -353,13 +355,14 @@
             }
 
 
-            function cancelFormHTML() {
-            var text = '<meta charset="utf-8">'+
-                        '<title>Значение number (input-type)</title>'+'<fieldset> <legend>Отмена транзакции</legend></fieldset>'
-                        +'<p><input type="number" min="0" placeholder="Номер транзакции" list="numbList"></p>'
-                        +'<input id="numbList"></input>'+'<div><button onclick="btnClose()">Закрыть</button></div>';
-            console.log('Aiteg');
-            return text;
+        function cancelFormHTML() {
+          var cancelPaymentDiv = document.getElementById("cancel-payment-div");
+          
+          cancelPaymentDiv.innerHTML = '<title>Значение number (input-type)</title>'+'<fieldset> <legend>Отмена транзакции</legend></fieldset>'
+                    +'<p><input type="number" min="0" placeholder="Номер транзакции"</p>'
+                    '<div><button onclick="btnClose()">Закрыть</button></div>';
+        console.log('Aiteg');
+       
 }
 
         function cancelPayment() {
@@ -372,14 +375,15 @@
           var xhr_can = new XMLHttpRequest();
 
 
-          xhr_can.open("POST", urlcancelAccount);
+          xhr_can.open("POST", urlcancelAccount, true);
           // xhr_can.setRequestHeader("x-csrf-token", getCookie("csrftoken"));
           xhr_can.setRequestHeader("Accept", "application/json");
           xhr_can.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+          xhr_can.responseType = 'json'
           xhr_can.send(jsonRandomNumber);
 
           xhr_can.onload = function () {
-            var cancelObj = xhr_can.response;
+            var cancelObj = (xhr_can.response);
             cancelDiv.innerHTML = cancelFormHTML();
           };
         }
