@@ -379,8 +379,8 @@
           var text =
             "<title>Значение number (input-type)</title>" +
             "<fieldset> <legend>Отмена транзакции</legend></fieldset>" +
-            '<p><input type="number" min="0" placeholder="Номер транзакции"</p>'+
-          ('<div><button onclick="cancelPayment()">Отменить</button></div>');
+            '<p><input type="number" min="0" id="cancel-transaction" placeholder="Номер транзакции"</p>'+
+          ('<div><button onclick="cancelTransaction()">Отменить</button></div>');
           console.log("Aiteg");
           return text;
         }
@@ -409,6 +409,30 @@
             cancelDiv.innerHTML = cancelFormHTML();
           };
         }
+
+
+        function cancelTransaction() {
+          console.log('cancel - Transaction');
+          var inputTransaction = input.value;
+          var jsonTransaction = JSON.stringify({
+            transaction_id: inputTransaction,
+          });
+
+          var xhr_trn = new XMLHttpRequest();
+          xhr_trn.open("POST", urlcancelAccount, true);
+          xhr_trn.setRequestHeader("Accept", "application/json");
+          xhr_trn.setRequestHeader(
+            "Content-Type",
+            "application/json; charset=utf-8"
+          );
+          xhr_trn.onload = function () {
+            var cancelObj = xhr_can.response;
+        };
+        }
+    
+
+
+        
       </script>
     </body>
   </html>
