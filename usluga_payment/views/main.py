@@ -4,8 +4,10 @@ from usluga_payment.models import Operator
 
 
 def index(request):
+    # get dict from request
     request_info = dict(request.GET)
 
+    # our info from baip system
     operator = Operator.objects.filter(
         cashregister_id=request_info["cashregister_id"][0],
         kiosk_id=request_info["kiosk_id"][0],
@@ -13,6 +15,7 @@ def index(request):
         partner_id=request_info["partner_id"][0],
     )
 
+    # if not exists
     if not operator.exists():
         Operator.objects.create(
             cashregister_id=request_info["cashregister_id"][0],

@@ -446,6 +446,22 @@
           return text;
         }
 
+
+        function cancelTransactionFormHTML(clientName) {
+          // cancelButton = document.getElementById('cancel-payment-button')
+          var text =
+            '<div class="result__from-js">' +
+            "<div>" +
+            "<div>" +
+            "<strong>" +
+            "Абонент:</strong> " +
+            clientName +
+            "</div>" 
+          
+          return text;
+
+        }
+
         function cancelPayment() {
           var cancelTrn = document.getElementById("cancel-transaction");
           var inputNumber = cancelTrn.value;
@@ -469,6 +485,7 @@
           xhr_can.onload = function () {
             var cancelObj = xhr_can.response;
             cancelDiv.innerHTML = cancelFormHTML();
+            
           };
         }
 

@@ -8,6 +8,7 @@ URL = "https://billing.crm.mycloud.kg/pay/main.php"
 TOKEN = config("CRM_TOKEN", default="")
 
 
+# make payment request on URL
 def make_payment(account_number, amount):
     """
     Make a payment request
@@ -26,7 +27,7 @@ def make_payment(account_number, amount):
 
     return response_content
 
-
+# get info from URL
 def check_account(account_number: int):
     data = {
         "token": TOKEN,

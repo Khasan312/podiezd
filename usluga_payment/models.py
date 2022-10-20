@@ -5,14 +5,14 @@ from uuid import uuid4
 from django.db import models
 from django.utils import timezone
 
-from .utils import create_new_ref_number
 
-# from django.dispatch import receiver
-LENGTH = 20
+from django.dispatch import receiver
 
 
 def random_string():
     return randint(10000, 99999999)
+
+
 
 
 class Operator(models.Model):
@@ -28,6 +28,8 @@ class Operator(models.Model):
 
     def __str__(self):
         return str(self.operator_id)
+
+
 
 
 class Customer(models.Model):
@@ -64,6 +66,8 @@ class Transaction(models.Model):
 
     def __str__(self):
         return str(self.transaction_number)
+
+
 
 
 class Podiezd(models.Model):

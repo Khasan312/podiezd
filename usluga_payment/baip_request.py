@@ -56,6 +56,8 @@ def send_baip_account_data(transaction, operator, action, customer):
     return response_content
 
 
+
+
 def cancel_baip_account_data(transaction_number, operator_id, **kwargs):
     operator = Operator.objects.get(operator_id=operator_id)
     transaction = Transaction.objects.get(

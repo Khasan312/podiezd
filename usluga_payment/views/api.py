@@ -1,6 +1,8 @@
 from ast import operator
 import json
 
+from django.shortcuts import render
+
 from rest_framework.exceptions import APIException
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -23,6 +25,7 @@ from usluga_payment.serializers import (
 from rest_framework import status
 
 
+#Check account with account number
 class CheckAccount(APIView):
     def post(self, request, *args, **kwargs):
         account = json.loads(request.body)["account_number"]
@@ -36,6 +39,7 @@ class CheckAccount(APIView):
             transaction = Transaction.objects.create(
                 customer=customer.first(), operator=operator
             )
+            #get info  transaction and customer 
             return Response(
                 data={
                     "customer": CustomerSerializer(
@@ -99,6 +103,7 @@ class MakePayment(APIView):
         if result["success"] is False:
             raise APIException(result, code=404)
 
+        # get transaction_number
         transaction = Transaction.objects.filter(
             transaction_number=validated_data["transaction_num"]
         ).first()
@@ -135,12 +140,14 @@ class MakePayment(APIView):
         return Response(result, status=200)
 
 
+# cancel payment
 class TransactionCancel(APIView):
-    template_name = 'cancel.html'
+    # template_name = 'cancel.html'
 
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
 
+        # serializer data
         serializer = TransactionCancelSerializer(data=data)
         serializer.is_valid(raise_exception=True)
 
@@ -150,21 +157,32 @@ class TransactionCancel(APIView):
             transaction_number=validated_data["transaction_id"]
         ).first()
 
+        # change status "CANCELLED"
         transaction.status = "cancelled"
         transaction.save()
 
+        # send request on baip "cancel transaction"
         cancel_baip_account_data(
             transaction_number=validated_data["transaction_id"],
             operator_id=validated_data["operator_id"],
         )
 
         return Response(status=200)
+#         response = redirect('cancel.html')
+
+#         return response
+
+# def close(request,TransactionCancel):
+#     response = render('cancel.html')
+
+#     return response
 
 
 class OperatorInfoView(APIView):
     def post(self, request, *args, **kwargs):
         data = request.data
 
+        # serializer data
         serializer = OperatorSerializer(data=data)
         serializer.is_valid(raise_exception=True)
 
@@ -176,7 +194,7 @@ class OperatorInfoView(APIView):
                 data=OperatorReadSerializer(instance=serializer.instance).data,
                 status=200,
             )
-
+        
         return Response(
             data=OperatorReadSerializer(instance=operator.first()).data,
             status=200,
