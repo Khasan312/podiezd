@@ -13,6 +13,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="transaction",
             name="amount",
-            field=models.DecimalField(blank=True, decimal_places=2, max_digits=10),
+            field=models.DecimalField(
+                blank=True, decimal_places=2, max_digits=10
+            ),
         ),
     ]

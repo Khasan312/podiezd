@@ -17,9 +17,8 @@ class MakePaymentSerializer(serializers.Serializer):
 
 
 class TransactionCancelSerializer(serializers.Serializer):
-    account_number = serializers.CharField()
-    amount = serializers.DecimalField(max_digits=9, decimal_places=2)
     transaction_id = serializers.CharField()
+    operator_id = serializers.CharField()
 
 
 class PodiezdSerializer(ModelSerializer):
@@ -40,10 +39,10 @@ class OperatorReadSerializer(OperatorSerializer):
 
 
 class CustomerSerializer(ModelSerializer):
-
     class Meta:
         model = Customer
         fields = "__all__"
+
 
 class TransactionSerializer(ModelSerializer):
     operator = OperatorReadSerializer()
@@ -52,8 +51,3 @@ class TransactionSerializer(ModelSerializer):
     class Meta:
         model = Transaction
         fields = "__all__"
-
-
-
-
-

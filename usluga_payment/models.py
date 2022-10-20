@@ -34,7 +34,6 @@ class Customer(models.Model):
     account_number = models.IntegerField()
     name = models.CharField(max_length=128)
 
-
     def __str__(self):
         return self.name
 
@@ -48,11 +47,15 @@ class Transaction(models.Model):
     customer = models.ForeignKey(
         Customer, on_delete=models.SET_NULL, null=True
     )
-    transaction_number = models.CharField(max_length=128, default=random_string)
+    transaction_number = models.CharField(
+        max_length=128, default=random_string
+    )
     operator = models.ForeignKey(
         Operator, on_delete=models.SET_NULL, null=True
     )
-    amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
+    amount = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, default=0
+    )
     status = models.CharField(
         max_length=32,
         choices=TransactionStatus.choices,

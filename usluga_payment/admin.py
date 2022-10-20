@@ -6,4 +6,3 @@ admin.site.register(Podiezd)
 admin.site.register(Transaction)
 admin.site.register(Operator)
 admin.site.register(Customer)
-

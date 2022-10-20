@@ -17,7 +17,8 @@ from usluga_payment.serializers import (
     OperatorReadSerializer,
     OperatorSerializer,
     PodiezdSerializer,
-    TransactionSerializer,
+    TransactionCancelSerializer,
+    TransactionSerializer
 )
 from rest_framework import status
 
@@ -135,30 +136,27 @@ class MakePayment(APIView):
 
 
 class TransactionCancel(APIView):
+    template_name = 'cancel.html'
+
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
-        print(data)
-        print('---------------------------')
 
-        serializer = TransactionSerializer(data=data)
+        serializer = TransactionCancelSerializer(data=data)
         serializer.is_valid(raise_exception=True)
 
-        validated_data = serializer.validated_data
+        validated_data = serializer.data
 
-        customer = Customer.objects.filter(
-            account_number=validated_data["account_number"]
-        )
-        if not customer.exists():
-            raise APIException("Customer not found", code=404)
-
-
-        transaction = Transaction.objects.filter(transaction_number=validated_data['transaction_num']).first()
+        transaction = Transaction.objects.filter(
+            transaction_number=validated_data["transaction_id"]
+        ).first()
 
         transaction.status = "cancelled"
-        transaction.amount = validated_data["amount"]
         transaction.save()
 
-        cancel_baip_account_data(account_number=validated_data['account_number'])
+        cancel_baip_account_data(
+            transaction_number=validated_data["transaction_id"],
+            operator_id=validated_data["operator_id"],
+        )
 
         return Response(status=200)
 

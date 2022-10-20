@@ -7,7 +7,10 @@ import usluga_payment.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("usluga_payment", "0011_customer_operator_alter_podiezd_options_and_more"),
+        (
+            "usluga_payment",
+            "0011_customer_operator_alter_podiezd_options_and_more",
+        ),
     ]
 
     operations = [
