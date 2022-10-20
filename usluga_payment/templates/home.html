@@ -146,6 +146,69 @@
           box-shadow: 1px 1px 10px #008000;
         }
 
+        #cancel-payment{
+          width: 95px;
+          height: 28px;
+          border-radius: 6px;
+          border: 1px solid #ddd;
+          margin-top : 50px;
+          margin-left : 56%;
+        }
+        #cancel-payment:hover {
+          background-color: bisque;
+        }
+        .cancel-payment:active {
+          background-color: #fff;
+        }
+
+        #close-window{
+          width: 95px;
+          height: 28px;
+          border-radius: 6px;
+          border: 1px solid #ddd;
+          margin-top : 70px;
+          margin-left : 56%;
+        }
+
+        #close-window:hover {
+          background-color: bisque;
+        }
+        #close-window:active {
+          background-color: #fff;
+        }
+
+        #cancel-transaction{
+          width: 200px;
+          height: 30px;
+          border: 1px solid #ddd;
+          border-radius: 6px;
+          padding: 5px;
+          margin-left : 23%;
+        }
+
+       
+
+        #cancel-payment-button{
+          width: 120px;
+          height: 33px;
+          border-radius: 6px;
+          border: 1px solid #ddd;
+          width: auto;
+          margin-left : 56%;
+          margin-bottom: 20%;
+        }
+        #cancel-payment-button:hover {
+          background-color: bisque;
+        }
+        #cancel-payment-button:active {
+          background-color: #fff;
+        }
+
+        #cancel-transaction-text{
+          font-size: 18px;
+          margin-left: 30px;
+        }
+
         /* MAIN end */
       </style>
 
@@ -163,9 +226,11 @@
 
         <!-- main -->
         <div class="main">
+          <input type="button" value="Назад" style="display: block;">
           <div class="main__div">
             <div class="main__div-text-type">
               <h2 class="main__div-text">Лицевой счет</h2>
+              
             </div>
             <!-- ===== -->
             <div class="main__div-input-type">
@@ -188,15 +253,12 @@
           <div class="result__div" id="result__div"></div>
 
           <div>
-            <button onclick="btnClose()">Закрыть</button>
+            <button id="close-window" onclick="btnClose()">Закрыть</button>
           </div>
 
           <div>
-            <button id="cancel-payment" onclick="openInput()">
-              Отменить
-            </button>
-            <div id="cancel-payment-div">
-            </div>
+              <button id="cancel-payment" onclick="openInput()">Отменить</button>
+            <div id="cancel-payment-div"></div>
           </div>
         </div>
         <!-- main end-->
@@ -204,7 +266,7 @@
       <!-- container end -->
 
       <script>
-         var input = document.getElementById("main__div-input");
+        var input = document.getElementById("main__div-input");
         var resultDiv = document.getElementById("result__div");
         var cancelDiv = document.getElementById("cancel-payment-div");
         var accountNumber;
@@ -378,16 +440,18 @@
         function cancelFormHTML() {
           var text =
             "<title>Значение number (input-type)</title>" +
-            "<fieldset> <legend>Отмена транзакции</legend></fieldset>" +
-            '<p><input type="number" min="0" id="cancel-transaction" placeholder="Номер транзакции"</p>'+
-          ('<div><button onclick="cancelPayment()">Отменить</button></div>');
+            "<strong id='cancel-transaction-text'> Отмена транзакции</strong>" +
+            '<p><input type="number" min="0" id="cancel-transaction" placeholder="Номер транзакции"</p>' +
+            '<div><button  id="cancel-payment-button" onclick="cancelPayment()">Отменить транзакцию</button></div>';
           return text;
         }
 
         function cancelPayment() {
-          var inputNumber = input.value;
+          var cancelTrn = document.getElementById("cancel-transaction");
+          var inputNumber = cancelTrn.value;
           var jsonRandomNumber = JSON.stringify({
             transaction_id: inputNumber,
+            operator_id: operator_id,
           });
 
           var xhr_can = new XMLHttpRequest();
@@ -408,35 +472,13 @@
           };
         }
 
-
-        function openInput(){
-          cancelDiv.innerHTML = cancelFormHTML()
-          }
-
-
-        function cancelTransaction() {
-          console.log('cancel - Transaction');
-          var inputTransaction = input.value;
-          var jsonTransaction = JSON.stringify({
-            transaction_id: inputTransaction,
-          });
-
-          var xhr_trn = new XMLHttpRequest();
-          xhr_trn.open("POST", urlcancelAccount, true);
-          xhr_trn.setRequestHeader("Accept", "application/json");
-          xhr_trn.setRequestHeader(
-            "Content-Type",
-            "application/json; charset=utf-8"
-          );
-          xhr_trn.onload = function () {
-            var cancelObj = xhr_can.response;
-            cancelObj.status = 'cancelled'
-        };
+        function openInput() {
+          main = document.getElementsByClassName('main__div')[0]
+          cancelDiv.innerHTML = cancelFormHTML();
+          main.style.display = "none"
         }
-    
 
 
-        
       </script>
     </body>
   </html>
