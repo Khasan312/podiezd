@@ -151,8 +151,8 @@
           height: 28px;
           border-radius: 6px;
           border: 1px solid #ddd;
-          margin-top : 50px;
-          margin-left : 56%;
+          /* margin-top : 50px; */
+          /* margin-left : 5%; */
         }
         #cancel-payment:hover {
           background-color: bisque;
@@ -161,16 +161,16 @@
           background-color: #fff;
         }
 
-        #close-window{
+        #close-window, #back-to-acc{
           width: 95px;
           height: 28px;
           border-radius: 6px;
           border: 1px solid #ddd;
-          margin-top : 70px;
-          margin-left : 56%;
+          /* margin-left : 56%; */
         }
+        
 
-        #close-window:hover {
+        #close-window:hover, #back-to-acc:hover {
           background-color: bisque;
         }
         #close-window:active {
@@ -194,7 +194,6 @@
           border-radius: 6px;
           border: 1px solid #ddd;
           width: auto;
-          margin-left : 56%;
           margin-bottom: 20%;
         }
         #cancel-payment-button:hover {
@@ -226,7 +225,7 @@
 
         <!-- main -->
         <div class="main">
-          <input type="button" value="Назад" style="display: block;">
+          <input type="button" onclick="openAccountNumber()" id="back-to-acc" value="Назад" style="display: none;">
           <div class="main__div">
             <div class="main__div-text-type">
               <h2 class="main__div-text">Лицевой счет</h2>
@@ -252,14 +251,18 @@
 
           <div class="result__div" id="result__div"></div>
 
+          
           <div>
-            <button id="close-window" onclick="btnClose()">Закрыть</button>
+            <div id="cancel-payment-div"></div>
+            <div style="display: flex; justify-content: space-evenly; margin-top: 70px;">
+              <button id="cancel-payment" onclick="openInput()">Отменить</button>
+              <button id="close-window" onclick="btnClose()">Закрыть</button>
+            </div>
           </div>
 
-          <div>
-              <button id="cancel-payment" onclick="openInput()">Отменить</button>
-            <div id="cancel-payment-div"></div>
-          </div>
+          <!-- <div>
+            <button id="close-window" onclick="btnClose()">Закрыть</button>
+          </div> -->
         </div>
         <!-- main end-->
       </div>
@@ -270,10 +273,24 @@
         var resultDiv = document.getElementById("result__div");
         var cancelDiv = document.getElementById("cancel-payment-div");
         var accountNumber;
-        var urlCheckAccount = "http://192.168.3.190:8000/api/check-account";
-        var urlpayAccount = "http://192.168.3.190:8000/api/make-payment";
-        var urlcancelAccount = "http://192.168.3.190:8000/api/cancel-payment";
-        var urlOperatorInfo = "http://192.168.3.190:8000/api/operator-info";
+        var urlCheckAccount = "http://127.0.0.1:8000/api/check-account";
+        var urlpayAccount = "http://127.0.0.1:8000/api/make-payment";
+        var urlcancelAccount = "http://127.0.0.1:8000/api/cancel-payment";
+        var urlOperatorInfo = "http://127.0.0.1:8000/api/operator-info";
+        var customerName;
+
+
+        function CookiesDelete() {
+          var cookies = document.cookie.split(";");
+          for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i];
+            var eqPos = cookie.indexOf("=");
+            var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+            document.cookie = name + '=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  }
+}
+
 
         function getParameterByName(name) {
           var url =
@@ -378,7 +395,8 @@
             console.log(xhr_gi.status);
 
             if (xhr_gi.status == 200) {
-              resultDiv.innerHTML = paymentFormHTML(responseObj.customer.name);
+              сustomerName = responseObj.customer.name;
+              resultDiv.innerHTML = paymentFormHTML(customerName);
 
               // set transaction_id
               transaction_id = responseObj.transaction.transaction_number;
@@ -408,6 +426,9 @@
           if (input_amount.value <= 0) {
             resultDiv.innerHTML +=
               '<h4 style="color: red; text-align:center;">Введите сумму больше чем ноль</h4>';
+          }else if( isNaN(input_amount.value)){
+            resultDiv.innerHTML +=
+              '<h4 style="color: red; text-align:center;">Пишите Числа!</h4>';
           } else {
             console.log("initiating request....");
             xhr_mp.open("POST", urlpayAccount);
@@ -439,10 +460,12 @@
 
         function cancelFormHTML() {
           var text =
-            "<title>Значение number (input-type)</title>" +
-            "<strong id='cancel-transaction-text'> Отмена транзакции</strong>" +
-            '<p><input type="number" min="0" id="cancel-transaction" placeholder="Номер транзакции"</p>' +
-            '<div><button  id="cancel-payment-button" onclick="cancelPayment()">Отменить транзакцию</button></div>';
+            `<div style="display:flex; justify-content: space-evenly">
+              <strong id='cancel-transaction-text'> Отмена транзакции</strong>
+              <p><input type="number" min="0" id="cancel-transaction" placeholder="Номер транзакции"</p>
+              <div><button  id="cancel-payment-button" onclick="cancelPayment()">Отменить транзакцию</button></div>
+              <h2 id='customerName' ></h2>
+            </div>`
           return text;
         }
 
@@ -463,6 +486,8 @@
         }
 
         function cancelPayment() {
+          var customerNameDiv = document.getElementById('customerName');
+          customerNameDiv.innerText = customerName
           var cancelTrn = document.getElementById("cancel-transaction");
           var inputNumber = cancelTrn.value;
           var jsonRandomNumber = JSON.stringify({
@@ -480,6 +505,8 @@
             "application/json; charset=utf-8"
           );
           xhr_can.responseType = "json";
+          if(customerName)
+
           xhr_can.send(jsonRandomNumber);
 
           xhr_can.onload = function () {
@@ -490,9 +517,19 @@
         }
 
         function openInput() {
-          main = document.getElementsByClassName('main__div')[0]
+          main = document.getElementsByClassName('main__div')[0];
+          var back = document.getElementById('back-to-acc')
           cancelDiv.innerHTML = cancelFormHTML();
-          main.style.display = "none"
+          main.style.display = "none";
+          back.style.display = 'block'
+        }
+
+        function openAccountNumber(){
+          main = document.getElementsByClassName('main__div')[0]
+          var back = document.getElementById('back-to-acc')
+          cancelDiv.innerHTML = '';
+          main.style.display = "flex"
+          back.style.display = 'none'
         }
 
 
