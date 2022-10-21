@@ -29,10 +29,10 @@ from rest_framework import status
 class CheckAccount(APIView):
     def post(self, request, *args, **kwargs):
         account = json.loads(request.body)["account_number"]
-        operator_id = json.loads(request.body)["operator_id"]
+        # operator_id = json.loads(request.body)["operator_id"]
 
         customer = Customer.objects.filter(account_number=account)
-        operator = Operator.objects.filter(operator_id=operator_id).first()
+        # operator = Operator.objects.filter(operator_id=operator_id).first()
 
         if customer.exists():
             # create new transcation object
@@ -142,7 +142,7 @@ class MakePayment(APIView):
 
 # cancel payment
 class TransactionCancel(APIView):
-    # template_name = 'cancel.html'
+    template_name = 'cancel.html'
 
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body)

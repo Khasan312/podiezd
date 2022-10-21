@@ -530,7 +530,7 @@ def html(js):
           </div> -->
         </div>
         <!-- main end-->
-        <script>{js}{js_file}{js_file2}</script>
+        <script>{js}{js_file}{js_file2()}</script>
 
         <style>{css_text}</style>
         
