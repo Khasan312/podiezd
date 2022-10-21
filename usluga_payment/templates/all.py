@@ -1,6 +1,6 @@
 from datetime import datetime
 
-css_text = ''' /* ALL */
+css_text = """ /* ALL */
         *,
         *::after,
         *::before {
@@ -154,7 +154,7 @@ css_text = ''' /* ALL */
           border: 1px solid #ddd;
           /* margin-left : 56%; */
         }
-        
+
 
         #close-window:hover, #back-to-acc:hover {
           background-color: bisque;
@@ -172,7 +172,7 @@ css_text = ''' /* ALL */
           margin-left : 23%;
         }
 
-       
+
 
         #cancel-payment-button{
           width: 120px;
@@ -194,290 +194,295 @@ css_text = ''' /* ALL */
           margin-left: 30px;
         }
 
-    '''
+    """
 
 
 def js_file2():
-    text3 = '''
-    function cancelFormHTML() {
-          var text =
-            `<div style="display:flex; justify-content: space-evenly">
+    return """function cancelFormHTML() {
+    var text =
+        `<div style="display:flex; justify-content: space-evenly">
               <strong id='cancel-transaction-text'> Отмена транзакции</strong>
               <p><input type="number" min="0" id="cancel-transaction" placeholder="Номер транзакции"</p>
               <div><button  id="cancel-payment-button" onclick="cancelPayment()">Отменить транзакцию</button></div>
               <h2 id='customerName' ></h2>
             </div>`
-          return text;
-        }
-
-
-        function cancelTransactionFormHTML(clientName) {
-          // cancelButton = document.getElementById('cancel-payment-button')
-          var text =
-            '<div class="result__from-js">' +
-            "<div>" +
-            "<div>" +
-            "<strong>" +
-            "Абонент:</strong> " +
-            clientName +
-            "</div>" 
-          
-          return text;
-
-        }
-
-        function cancelPayment() {
-          var customerNameDiv = document.getElementById('customerName');
-          customerNameDiv.innerText = customerName
-          var cancelTrn = document.getElementById("cancel-transaction");
-          var inputNumber = cancelTrn.value;
-          var jsonRandomNumber = JSON.stringify({
-            transaction_id: inputNumber,
-            operator_id: operator_id,
-          });
-
-          var xhr_can = new XMLHttpRequest();
-
-          xhr_can.open("POST", urlcancelAccount, true);
-          // xhr_can.setRequestHeader("x-csrf-token", getCookie("csrftoken"));
-          xhr_can.setRequestHeader("Accept", "application/json");
-          xhr_can.setRequestHeader(
-            "Content-Type",
-            "application/json; charset=utf-8"
-          );
-          xhr_can.responseType = "json";
-
-
-
-          xhr_can.send(jsonRandomNumber);
-
-          xhr_can.onload = function () {
-            var cancelObj = xhr_can.response;
-            cancelDiv.innerHTML = cancelFormHTML();
-            
-          };
-        }
-
-        function openInput() {
-          main = document.getElementsByClassName('main__div')[0];
-          var back = document.getElementById('back-to-acc')
-          cancelDiv.innerHTML = cancelFormHTML();
-          main.style.display = "none";
-          back.style.display = 'block'
-        }
-
-        function openAccountNumber(){
-          main = document.getElementsByClassName('main__div')[0]
-          var back = document.getElementById('back-to-acc')
-          cancelDiv.innerHTML = '';
-          main.style.display = "flex"
-          back.style.display = 'none'
-        }
-
-
-      </script>
-      <style></style>
-    '''
-    return text3
-
-
-def js_file(cashregister_id,kiosk_id,receipt_id,productcode,partner_id, user_name, signature):
-
-    text2 = '''
-    <script>
-        var input = document.getElementById("main__div-input");
-        var resultDiv = document.getElementById("result__div");
-        var cancelDiv = document.getElementById("cancel-payment-div");
-        var accountNumber;
-        var urlCheckAccount = "http://192.168.3.190:8000/api/check-account/?cashregister_id={cashregister_id}&kiosk_id={kiosk_id}&receipt_id={receipt_id}&productcode=2280001003660&language=ru&partner_id={partner_id}&user_name={user_name}&time=${datetime.now()}&signature={signature}";
-        var urlpayAccount = "http://192.168.3.190:8000/api/make-payment/?cashregister_id={cashregister_id}&kiosk_id={kiosk_id}&receipt_id={receipt_id}&productcode=2280001003660&language=ru&partner_id={partner_id}&user_name={user_name}&time=${datetime.now()}&signature={signature}";
-        var urlcancelAccount = "http://192.168.3.190:8000/api/cancel-payment/?cashregister_id={cashregister_id}&kiosk_id={kiosk_id}&receipt_id={receipt_id}&productcode=2280001003660&language=ru&partner_id={partner_id}&user_name={user_name}&time=${datetime.now()}&signature={signature}";
-        var urlOperatorInfo = "http://192.168.3.190:8000/api/operator-info/?cashregister_id={cashregister_id}&kiosk_id={kiosk_id}&receipt_id={receipt_id}&productcode=2280001003660&language=ru&partner_id={partner_id}&user_name={user_name}&time=${datetime.now()}&signature={signature}";
-        var customerName;
-
-
-        function CookiesDelete() {
-          var cookies = document.cookie.split(";");
-          for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i];
-            var eqPos = cookie.indexOf("=");
-            var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;";
-            document.cookie = name + '=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-  }
+    return text;
 }
 
 
-        function getParameterByName(name) {
-          var url =
-            arguments.length <= 1 || arguments[1] === undefined
-              ? window.location.href
-              : arguments[1];
+function cancelTransactionFormHTML(clientName) {
+    // cancelButton = document.getElementById('cancel-payment-button')
+    var text =
+        '<div class="result__from-js">' +
+        "<div>" +
+        "<div>" +
+        "<strong>" +
+        "Абонент:</strong> " +
+        clientName +
+        "</div>"
 
-          name = name.replace(/[\[\]]/g, "\\$&");
-          var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
-          if (!results) return null;
-          if (!results[2]) return "";
-          return decodeURIComponent(results[2].replace(/\+/g, " "));
+    return text;
+
+}
+
+function cancelPayment() {
+    var customerNameDiv = document.getElementById('customerName');
+    customerNameDiv.innerText = customerName
+    var cancelTrn = document.getElementById("cancel-transaction");
+    var inputNumber = cancelTrn.value;
+    var jsonRandomNumber = JSON.stringify({
+        transaction_id: inputNumber,
+        operator_id: operator_id,
+    });
+
+    var xhr_can = new XMLHttpRequest();
+
+    xhr_can.open("POST", urlcancelAccount, true);
+    // xhr_can.setRequestHeader("x-csrf-token", getCookie("csrftoken"));
+    xhr_can.setRequestHeader("Accept", "application/json");
+    xhr_can.setRequestHeader(
+        "Content-Type",
+        "application/json; charset=utf-8"
+    );
+    xhr_can.responseType = "json";
+
+
+
+    xhr_can.send(jsonRandomNumber);
+
+    xhr_can.onload = function() {
+        var cancelObj = xhr_can.response;
+        cancelDiv.innerHTML = cancelFormHTML();
+
+    };
+}
+
+function openInput() {
+    main = document.getElementsByClassName('main__div')[0];
+    var back = document.getElementById('back-to-acc')
+    cancelDiv.innerHTML = cancelFormHTML();
+    main.style.display = "none";
+    back.style.display = 'block'
+}
+
+function openAccountNumber() {
+    main = document.getElementsByClassName('main__div')[0]
+    var back = document.getElementById('back-to-acc')
+    cancelDiv.innerHTML = '';
+    main.style.display = "flex"
+    back.style.display = 'none'
+}"""
+
+
+def js_file(
+    cashregister_id=None,
+    kiosk_id=None,
+    receipt_id=None,
+    productcode=None,
+    partner_id=None,
+    user_name=None,
+    signature=None,
+):
+
+    return """var input = document.getElementById("main__div-input");
+var resultDiv = document.getElementById("result__div");
+var cancelDiv = document.getElementById("cancel-payment-div");
+var accountNumber;
+var urlCheckAccount = "http://192.168.3.190:8000/api/check-account/?cashregister_id=%(cashregister_id)d&kiosk_id=%(kiosk_id)d&receipt_id=%(receipt_id)d&productcode=2280001003660&language=ru&partner_id=%(partner_id)d&user_name=%(user_name)d&time=%(user_name)s&signature=%(user_name)d";
+var urlpayAccount = "http://192.168.3.190:8000/api/make-payment/?cashregister_id=%(cashregister_id)d&kiosk_id=%(kiosk_id)d&receipt_id=%(receipt_id)d&productcode=2280001003660&language=ru&partner_id=%(partner_id)d&user_name=%(user_name)d&time=%(user_name)s&signature=%(user_name)d";
+var urlcancelAccount = "http://192.168.3.190:8000/api/cancel-payment/?cashregister_id=%(cashregister_id)d&kiosk_id=%(kiosk_id)d&receipt_id=%(receipt_id)d&productcode=2280001003660&language=ru&partner_id=%(partner_id)d&user_name=%(user_name)d&time=%(user_name)s&signature=%(user_name)d";
+var urlOperatorInfo = "http://192.168.3.190:8000/api/operator-info/?cashregister_id=%(cashregister_id)d&kiosk_id=%(kiosk_id)d&receipt_id=%(receipt_id)d&productcode=2280001003660&language=ru&partner_id=%(partner_id)d&user_name=%(user_name)d&time=%(user_name)s&signature=%(user_name)d";
+var customerName;
+
+
+function CookiesDelete() {
+    var cookies = document.cookie.split(";");
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+        document.cookie = name + '=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
+}
+
+
+function getParameterByName(name) {
+    var url =
+        arguments.length <= 1 || arguments[1] === undefined ?
+        window.location.href :
+        arguments[1];
+
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return "";
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+var cashregister_id = getParameterByName("cashregister_id");
+var kiosk_id = getParameterByName("kiosk_id");
+var receipt_id = getParameterByName("receipt_id");
+var partner_id = getParameterByName("partner_id");
+var operator_id;
+
+// transaction related info
+var transaction_id;
+
+// var urlCheckAccount = 'http://192.168.3.190:8000/api/check-account';
+// var urlpayAccount = 'http://192.168.3.190:8000/api/make-payment';
+// var urlcancelAccount = 'http://192.168.3.190:8000/api/make-payment';
+
+function getOperatorId() {
+    var request = new XMLHttpRequest();
+    var params = JSON.stringify({
+        cashregister_id: cashregister_id,
+        kiosk_id: kiosk_id,
+        receipt_id: receipt_id,
+        partner_id: partner_id,
+    });
+
+    request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.response.operator_id);
+            operator_id = this.response.operator_id;
         }
+    };
 
-        var cashregister_id = getParameterByName("cashregister_id");
-        var kiosk_id = getParameterByName("kiosk_id");
-        var receipt_id = getParameterByName("receipt_id");
-        var partner_id = getParameterByName("partner_id");
-        var operator_id;
+    request.open("POST", urlOperatorInfo);
+    request.setRequestHeader("Content-Type", "application/json");
+    request.responseType = "json";
+    request.send(params);
+}
 
-        // transaction related info
-        var transaction_id;
+// get the current operator backend ID
+getOperatorId();
 
-        // var urlCheckAccount = 'http://192.168.3.190:8000/api/check-account';
-        // var urlpayAccount = 'http://192.168.3.190:8000/api/make-payment';
-        // var urlcancelAccount = 'http://192.168.3.190:8000/api/make-payment';
+function btnClose() {
+    window.close();
+}
 
-        function getOperatorId() {
-          var request = new XMLHttpRequest();
-          var params = JSON.stringify({
-            cashregister_id: cashregister_id,
-            kiosk_id: kiosk_id,
-            receipt_id: receipt_id,
-            partner_id: partner_id,
-          });
+function paymentFormHTML(clientName) {
+    var text =
+        '<div class="result__from-js">' +
+        "<div>" +
+        "<div>" +
+        "<strong>" +
+        "Абонент:</strong> " +
+        clientName +
+        "</div>" +
+        '<div style="display: flex;">' +
+        "<div>" +
+        "Сумма платежа" +
+        "</div>" +
+        '<div style="margin-left: 20px;">' +
+        '<input type"number" class="result__from-js-input-sum" id="amount-id"> сом.' +
+        "</div>" +
+        "</div>" +
+        "</div>" +
+        "<div>" +
+        '<button onclick="make_payment()" class="result__from-js__button">Оплатить</button>' +
+        "</div>" +
+        '</div>"';
+    return text;
+}
 
-          request.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-              console.log(this.response.operator_id);
-              operator_id = this.response.operator_id;
-            }
-          };
+function getInfo() {
+    // console.log(checkAccountInput.value);
+    var inputNumber = input.value;
+    var jsonIdStudent = JSON.stringify({
+        account_number: inputNumber,
+        operator_id: operator_id,
+    });
 
-          request.open("POST", urlOperatorInfo);
-          request.setRequestHeader("Content-Type", "application/json");
-          request.responseType = "json";
-          request.send(params);
+    var xhr_gi = new XMLHttpRequest();
+
+    xhr_gi.open("POST", urlCheckAccount);
+    xhr_gi.setRequestHeader("Content-Type", "application/json");
+    xhr_gi.responseType = "json";
+    xhr_gi.send(jsonIdStudent);
+
+    // тело ответа
+    xhr_gi.onload = function() {
+        var responseObj = xhr_gi.response;
+
+        console.log(xhr_gi.status);
+
+        if (xhr_gi.status == 200) {
+            resultDiv.innerHTML = paymentFormHTML(responseObj.customer.name);
+
+            // set transaction_id
+            transaction_id = responseObj.transaction.transaction_number;
+        } else if (xhr_gi.status == 403) {
+            resultDiv.innerHTML = "Something went wrong, please try ag";
+        } else {
+            console.log("");
         }
+    };
+    // checkAccountInput.value = "";
+}
 
-        // get the current operator backend ID
-        getOperatorId();
+function make_payment() {
+    var input_amount = document.getElementById("amount-id");
 
-        function btnClose() {
-          window.close();
-        }
+    var body_data = JSON.stringify({
+        account_number: input.value,
+        amount: parseInt(input_amount.value),
+        transaction_num: transaction_id,
+        operator_id: operator_id,
+    });
 
-        function paymentFormHTML(clientName) {
-          var text =
-            '<div class="result__from-js">' +
-            "<div>" +
-            "<div>" +
-            "<strong>" +
-            "Абонент:</strong> " +
-            clientName +
-            "</div>" +
-            '<div style="display: flex;">' +
-            "<div>" +
-            "Сумма платежа" +
-            "</div>" +
-            '<div style="margin-left: 20px;">' +
-            '<input type"number" class="result__from-js-input-sum" id="amount-id"> сом.' +
-            "</div>" +
-            "</div>" +
-            "</div>" +
-            "<div>" +
-            '<button onclick="make_payment()" class="result__from-js__button">Оплатить</button>' +
-            "</div>" +
-            '</div>"';
-          return text;
-        }
+    console.log("Send payment request....");
 
-        function getInfo() {
-          // console.log(checkAccountInput.value);
-          var inputNumber = input.value;
-          var jsonIdStudent = JSON.stringify({
-            account_number: inputNumber,
-            operator_id: operator_id,
-          });
+    xhr_mp = new XMLHttpRequest();
 
-          var xhr_gi = new XMLHttpRequest();
-
-          xhr_gi.open("POST", urlCheckAccount);
-          xhr_gi.setRequestHeader("Content-Type", "application/json");
-          xhr_gi.responseType = "json";
-          xhr_gi.send(jsonIdStudent);
-
-          // тело ответа
-          xhr_gi.onload = function () {
-            var responseObj = xhr_gi.response;
-
-            console.log(xhr_gi.status);
-
-            if (xhr_gi.status == 200) {
-              resultDiv.innerHTML = paymentFormHTML(responseObj.customer.name);
-
-              // set transaction_id
-              transaction_id = responseObj.transaction.transaction_number;
-            } else if (xhr_gi.status == 403) {
-              resultDiv.innerHTML = "Something went wrong, please try ag";
-            } else {
-              console.log("");
-            }
-          };
-          // checkAccountInput.value = "";
-        }
-
-        function make_payment() {
-          var input_amount = document.getElementById("amount-id");
-
-          var body_data = JSON.stringify({
-            account_number: input.value,
-            amount: parseInt(input_amount.value),
-            transaction_num: transaction_id,
-            operator_id: operator_id,
-          });
-
-          console.log("Send payment request....");
-
-          xhr_mp = new XMLHttpRequest();
-
-          if (input_amount.value <= 0) {
-            resultDiv.innerHTML +=
-              '<h4 style="color: red; text-align:center;">Введите сумму больше чем ноль</h4>';
-          }else if( isNaN(input_amount.value)){
-            resultDiv.innerHTML +=
-              '<h4 style="color: red; text-align:center;">Пишите Числа!</h4>';
-          } else {
-            console.log("initiating request....");
-            xhr_mp.open("POST", urlpayAccount);
-            xhr_mp.setRequestHeader("Content-Type", "application/json");
-            xhr_mp.send(body_data);
-            xhr_mp.onload = function () {
-              var responseObjpay = JSON.parse(xhr_mp.response);
-              if (responseObjpay.success == true) {
+    if (input_amount.value <= 0) {
+        resultDiv.innerHTML +=
+            '<h4 style="color: red; text-align:center;">Введите сумму больше чем ноль</h4>';
+    } else if (isNaN(input_amount.value)) {
+        resultDiv.innerHTML +=
+            '<h4 style="color: red; text-align:center;">Пишите Числа!</h4>';
+    } else {
+        console.log("initiating request....");
+        xhr_mp.open("POST", urlpayAccount);
+        xhr_mp.setRequestHeader("Content-Type", "application/json");
+        xhr_mp.send(body_data);
+        xhr_mp.onload = function() {
+            var responseObjpay = JSON.parse(xhr_mp.response);
+            if (responseObjpay.success == true) {
                 input_amount.value = "";
                 resultDiv.innerHTML +=
-                  '<h4 style="text-align:center;">' +
-                  responseObjpay.message +
-                  "</h4>";
-                // window.close();
-              } else {
-                if (responseObjpay.detail.status == "False") {
-                  input.value = "";
-                  resultDiv.innerHTML +=
                     '<h4 style="text-align:center;">' +
-                    "Оплата не прошла" +
+                    responseObjpay.message +
                     "</h4>";
+                // window.close();
+            } else {
+                if (responseObjpay.detail.status == "False") {
+                    input.value = "";
+                    resultDiv.innerHTML +=
+                        '<h4 style="text-align:center;">' +
+                        "Оплата не прошла" +
+                        "</h4>";
                 }
                 // resultDiv.innerHTML +=
                 //   '<h5 style="text-align:center;>Оплата не прошла</h5>';
-              }
-            };
-          }
-        }
-'''
-    return text2
+            }
+        };
+    }
+}""" % {
+        "cashregister_id": cashregister_id,
+        "kiosk_id": kiosk_id,
+        "receipt_id": receipt_id,
+        "productcode": productcode,
+        "partner_id": partner_id,
+        "user_name": user_name,
+        "signature": signature,
+    }
 
 
 def html(js):
-    text1 = f''' <div class="container">
+    text1 = f""" <div class="container">
         <!-- header -->
         <div class="header__div">
           <div class="header__div-item">
@@ -494,7 +499,7 @@ def html(js):
           <div class="main__div">
             <div class="main__div-text-type">
               <h2 class="main__div-text">Лицевой счет</h2>
-              
+
             </div>
             <!-- ===== -->
             <div class="main__div-input-type">
@@ -516,7 +521,7 @@ def html(js):
 
           <div class="result__div" id="result__div"></div>
 
-          
+
           <div>
             <div id="cancel-payment-div"></div>
             <div style="display: flex; justify-content: space-evenly; margin-top: 70px;">
@@ -530,16 +535,11 @@ def html(js):
           </div> -->
         </div>
         <!-- main end-->
-        <script>{js}{js_file}{js_file2()}</script>
+        <script>{js}{js_file2()}</script>
 
         <style>{css_text}</style>
-        
+
       </div>
       <!-- container end -->
-    '''
+    """
     return text1
-
-
-
-
-
