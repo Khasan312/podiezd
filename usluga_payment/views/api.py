@@ -1,4 +1,3 @@
-from ast import operator
 import json
 
 from django.shortcuts import render
@@ -29,17 +28,17 @@ from rest_framework import status
 class CheckAccount(APIView):
     def post(self, request, *args, **kwargs):
         account = json.loads(request.body)["account_number"]
-        # operator_id = json.loads(request.body)["operator_id"]
+        operator_id = json.loads(request.body)["operator_id"]
 
         customer = Customer.objects.filter(account_number=account)
-        # operator = Operator.objects.filter(operator_id=operator_id).first()
+        operator = Operator.objects.filter(operator_id=operator_id).first()
 
         if customer.exists():
             # create new transcation object
             transaction = Transaction.objects.create(
                 customer=customer.first(), operator=operator
             )
-            #get info  transaction and customer 
+            #get info  transaction and customer
             return Response(
                 data={
                     "customer": CustomerSerializer(
@@ -194,7 +193,7 @@ class OperatorInfoView(APIView):
                 data=OperatorReadSerializer(instance=serializer.instance).data,
                 status=200,
             )
-        
+
         return Response(
             data=OperatorReadSerializer(instance=operator.first()).data,
             status=200,

@@ -24,8 +24,8 @@ def index(request):
             receipt_id=request_info["receipt_id"][0],
             partner_id=request_info["partner_id"][0],
         )
+        
     js_code = js_file(1, 2, 3, 4, 5, 6, 7)
-    print(js_code)
     full = html(js_code)
 
     return HttpResponse(full)

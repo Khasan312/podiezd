@@ -288,10 +288,10 @@ def js_file(
 var resultDiv = document.getElementById("result__div");
 var cancelDiv = document.getElementById("cancel-payment-div");
 var accountNumber;
-var urlCheckAccount = "http://192.168.3.190:8000/api/check-account/?cashregister_id=%(cashregister_id)d&kiosk_id=%(kiosk_id)d&receipt_id=%(receipt_id)d&productcode=2280001003660&language=ru&partner_id=%(partner_id)d&user_name=%(user_name)d&time=%(user_name)s&signature=%(user_name)d";
-var urlpayAccount = "http://192.168.3.190:8000/api/make-payment/?cashregister_id=%(cashregister_id)d&kiosk_id=%(kiosk_id)d&receipt_id=%(receipt_id)d&productcode=2280001003660&language=ru&partner_id=%(partner_id)d&user_name=%(user_name)d&time=%(user_name)s&signature=%(user_name)d";
-var urlcancelAccount = "http://192.168.3.190:8000/api/cancel-payment/?cashregister_id=%(cashregister_id)d&kiosk_id=%(kiosk_id)d&receipt_id=%(receipt_id)d&productcode=2280001003660&language=ru&partner_id=%(partner_id)d&user_name=%(user_name)d&time=%(user_name)s&signature=%(user_name)d";
-var urlOperatorInfo = "http://192.168.3.190:8000/api/operator-info/?cashregister_id=%(cashregister_id)d&kiosk_id=%(kiosk_id)d&receipt_id=%(receipt_id)d&productcode=2280001003660&language=ru&partner_id=%(partner_id)d&user_name=%(user_name)d&time=%(user_name)s&signature=%(user_name)d";
+var urlCheckAccount = "http://127.0.0.1:8000/api/check-account?cashregister_id=%(cashregister_id)d&kiosk_id=%(kiosk_id)d&receipt_id=%(receipt_id)d&productcode=2280001003660&language=ru&partner_id=%(partner_id)d&user_name=%(user_name)d&time=%(user_name)s&signature=%(user_name)d";
+var urlpayAccount = "http://127.0.0.1:8000/api/make-payment?cashregister_id=%(cashregister_id)d&kiosk_id=%(kiosk_id)d&receipt_id=%(receipt_id)d&productcode=2280001003660&language=ru&partner_id=%(partner_id)d&user_name=%(user_name)d&time=%(user_name)s&signature=%(user_name)d";
+var urlcancelAccount = "http://127.0.0.1:8000/api/cancel-payment?cashregister_id=%(cashregister_id)d&kiosk_id=%(kiosk_id)d&receipt_id=%(receipt_id)d&productcode=2280001003660&language=ru&partner_id=%(partner_id)d&user_name=%(user_name)d&time=%(user_name)s&signature=%(user_name)d";
+var urlOperatorInfo = "http://127.0.0.1:8000/api/operator-info?cashregister_id=%(cashregister_id)d&kiosk_id=%(kiosk_id)d&receipt_id=%(receipt_id)d&productcode=2280001003660&language=ru&partner_id=%(partner_id)d&user_name=%(user_name)d&time=%(user_name)s&signature=%(user_name)d";
 var customerName;
 
 
@@ -330,9 +330,9 @@ var operator_id;
 // transaction related info
 var transaction_id;
 
-// var urlCheckAccount = 'http://192.168.3.190:8000/api/check-account';
-// var urlpayAccount = 'http://192.168.3.190:8000/api/make-payment';
-// var urlcancelAccount = 'http://192.168.3.190:8000/api/make-payment';
+// var urlCheckAccount = 'http://127.0.0.1:8000/api/check-account';
+// var urlpayAccount = 'http://127.0.0.1:8000/api/make-payment';
+// var urlcancelAccount = 'http://127.0.0.1:8000/api/make-payment';
 
 function getOperatorId() {
     var request = new XMLHttpRequest();
