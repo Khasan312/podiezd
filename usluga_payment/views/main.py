@@ -28,4 +28,5 @@ def index(request):
     js_code = js_file(1, 2, 3, 4, 5, 6, 7)
     full = html(js_code)
 
-    return HttpResponse(full)
+    return render(request, 'home.html')
+    # return HttpResponse(full)

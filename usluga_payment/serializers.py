@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from usluga_payment.models import Customer, Operator, Podiezd, Transaction
+from usluga_payment.models import Customer, Operator, Transaction
 
 
 class MakePaymentSerializer(serializers.Serializer):
@@ -18,13 +18,13 @@ class MakePaymentSerializer(serializers.Serializer):
 
 class TransactionCancelSerializer(serializers.Serializer):
     transaction_id = serializers.CharField()
-    operator_id = serializers.CharField()
+    # operator_id = serializers.CharField()
 
 
-class PodiezdSerializer(ModelSerializer):
-    class Meta:
-        model = Podiezd
-        fields = "__all__"
+# class PodiezdSerializer(ModelSerializer):
+#     class Meta:
+#         model = Podiezd
+#         fields = "__all__"
 
 
 class OperatorSerializer(ModelSerializer):

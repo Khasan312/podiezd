@@ -10,14 +10,14 @@ from usluga_payment.baip_request import (
     cancel_baip_account_data,
     send_baip_account_data,
 )
-from usluga_payment.models import Customer, Operator, Podiezd, Transaction
+from usluga_payment.models import Customer, Operator, Transaction
 from usluga_payment.payment import check_account, make_payment
 from usluga_payment.serializers import (
     CustomerSerializer,
     MakePaymentSerializer,
     OperatorReadSerializer,
     OperatorSerializer,
-    PodiezdSerializer,
+    # PodiezdSerializer,
     TransactionCancelSerializer,
     TransactionSerializer
 )
@@ -27,16 +27,19 @@ from rest_framework import status
 #Check account with account number
 class CheckAccount(APIView):
     def post(self, request, *args, **kwargs):
+        print(request.body)
         account = json.loads(request.body)["account_number"]
-        operator_id = json.loads(request.body)["operator_id"]
+        # operator_id = json.loads(request.body)["operator_id"]
 
         customer = Customer.objects.filter(account_number=account)
-        operator = Operator.objects.filter(operator_id=operator_id).first()
+        # operator = Operator.objects.filter(operator_id=operator_id).first()
 
         if customer.exists():
             # create new transcation object
             transaction = Transaction.objects.create(
-                customer=customer.first(), operator=operator
+                customer=customer.first(),
+                #  operator=operator
+
             )
             #get info  transaction and customer
             return Response(
@@ -128,6 +131,7 @@ class MakePayment(APIView):
             operator=operator,
             action="pay",
             customer=customer.first(),
+            # amount = transaction.amount
         )
 
         # if not payment:
@@ -141,7 +145,6 @@ class MakePayment(APIView):
 
 # cancel payment
 class TransactionCancel(APIView):
-    template_name = 'cancel.html'
 
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body)

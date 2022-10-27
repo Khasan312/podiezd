@@ -6,6 +6,7 @@ from django.db import models
 from django.utils import timezone
 
 
+
 from django.dispatch import receiver
 
 
@@ -70,10 +71,10 @@ class Transaction(models.Model):
 
 
 
-class Podiezd(models.Model):
-    account_number = models.IntegerField()
-    refill_date_time = models.DateTimeField(auto_now_add=True)
-    action = models.CharField(max_length=50)
+# class Podiezd(models.Model):
+#     account_number = models.IntegerField()
+#     refill_date_time = models.DateTimeField(auto_now_add=True)
+#     action = models.CharField(max_length=50)
 
-    def __str__(self) -> str:
-        return f"action -> {self.action}"
+#     def __str__(self) -> str:
+#         return f"action -> {self.action}"
